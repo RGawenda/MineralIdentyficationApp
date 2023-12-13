@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MineralActivity">
+
+    <ImageView
+        android:id="@+id/min_image"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/min_text"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="kwarc"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/edit_mineral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="edit" />
+
+</LinearLayout>

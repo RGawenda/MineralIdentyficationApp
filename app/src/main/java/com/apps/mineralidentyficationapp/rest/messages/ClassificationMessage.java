@@ -1,4 +1,4 @@
-package com.gymapps.mineralidentyficationapp.rest.messages;
+package com.apps.mineralidentyficationapp.rest.messages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassificationResultMessageClass {
-    String authToken;
-    String classificationResult;
+public class ClassificationMessage {
+    private String authToken;
+    private String stringImage;
 }
