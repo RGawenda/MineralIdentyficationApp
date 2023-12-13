@@ -18,15 +18,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import io.reactivex.Observable;
 
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private Button camera, gallery, collection;
@@ -128,28 +133,51 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void sendToClassification(Bitmap image){
+    private void downloadMineralsNames(Map<String, Double> result){
         MineralAppApiClient myApiClient = new MineralAppApiClient(context);
 
         showLoading();
-        myApiClient.classification(new RxCallback<>() {
+
+        myApiClient.getMineralsNames(new RxCallback<>() {
             @Override
-            public void onSuccess(Map<String, Double> result) {
+            public void onSuccess(List<String> mineralsResult) {
+                Log.i("downloadMineralsNames", "success");
                 hideLoading();
-                List<String> names2 = Arrays.asList(new String[]{"fff", "lll", "agate", "amethyst", "azurite", "calcite", "chrysocolla", "citrine", "emerald", "gypsum",
-                        "labradorite", "malachite", "opal", "pyrite", "quartz", "ruby", "smoky quartz", "topaz", "tourmaline",
-                        "turquoise", "wulfenite", "ooo", "qqq"});
-                Log.i("success", "navigate");
-                showClassificationResult(result, names2);
+                showClassificationResult(result, mineralsResult);
             }
 
             @Override
             public void onError(String errorMessage) {
-                Log.i("error rx", "error rx");
+                Log.i("downloadMineralsNames", "error: " + errorMessage);
+                hideLoading();
+            }
+        });
+    }
+
+    private void sendToClassification(Bitmap image){
+        MineralAppApiClient myApiClient = new MineralAppApiClient(context);
+        Map<String, Double> classificationResult;
+        List<String> mineralsList;
+
+        showLoading();
+
+        myApiClient.classification(new RxCallback<>() {
+            @Override
+            public void onSuccess(Map<String, Double> result) {
+                Log.i("classification", "success");
+                downloadMineralsNames(result);
+                hideLoading();
+            }
+            @Override
+            public void onError(String errorMessage) {
+                Log.i("classification", "error: "+ errorMessage);
                 hideLoading();
             }
         }, image);
-    }
 
+
+
+
+    }
 
 }

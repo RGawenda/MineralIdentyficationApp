@@ -1,7 +1,9 @@
 package com.apps.mineralidentyficationapp.rest;
 
+import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationResultMessage;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Single;
@@ -16,6 +18,12 @@ public interface MineralAppApi {
     // Classification
     @GET("mineral-classification")
     Single<Map<String, Double>> getClassification(@Query("image") String image);
+
+    @GET("get-minerals-names")
+    Single<List<String>> getMineralsNames();
+
+    @GET("get-mineral")
+    Single<Minerals> getMineral(@Query("mineralName") String mineralName);
 
     @GET(value = "all-collection")
     Call<ClassificationResultMessage> getCollections(@Query("param") String parameter);

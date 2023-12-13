@@ -1,5 +1,6 @@
 package com.apps.mineralidentyficationapp.collection;
 
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +8,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class Mineral {
+public class Minerals {
     private String mineralName;
-    private String vss;
-    private String mohsScale;
+    private Double mohsScale;
     private String chemicalFormula;
     private String occurrencePlace;
 }

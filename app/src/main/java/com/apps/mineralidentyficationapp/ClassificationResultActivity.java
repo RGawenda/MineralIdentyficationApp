@@ -1,22 +1,30 @@
 package com.apps.mineralidentyficationapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 public class ClassificationResultActivity extends AppCompatActivity {
     Map<String, Double> mineralList;
     List<String> names;
+    private Button addMineralButton, addImageButton;
+    String selectedMineralName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +39,16 @@ public class ClassificationResultActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         EditText searchEditText = findViewById(R.id.searchEditText);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        TextView selectedText = findViewById(R.id.selectedMineral);
+
+        addMineralButton = findViewById(R.id.addToCollectionNewMineral);
+        addImageButton = findViewById(R.id.addToCollectionAsImage);
 
         MineralAdapter adapter = new MineralAdapter(names, mineralList);
 
         adapter.setOnItemClickListener(mineralName  -> {
-            // Handle item click
-            Log.i("MainActivity", "Item clicked at position: " + mineralName );
+            selectedText.setText(mineralName);
+            selectedMineralName = mineralName;
         });
 
         recyclerView.setLayoutManager(layoutManager);
@@ -54,6 +66,30 @@ public class ClassificationResultActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable editable) {}
     });
+
+
+        addMineralButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, MineralActivity.class);
+                intent.putExtra("selectedMineralName", (Serializable) selectedMineralName);
+                context.startActivity(intent);
+            }
+        });
+
+        addImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = view.getContext();
+                Intent intent = new Intent(context, MineralActivity.class);
+                intent.putExtra("selectedMineralName", (Serializable) selectedMineralName);
+
+                context.startActivity(intent);
+            }
+        });
     }
+
+
 }
 
