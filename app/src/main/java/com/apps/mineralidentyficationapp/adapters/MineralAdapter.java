@@ -1,16 +1,16 @@
-package com.apps.mineralidentyficationapp;
+package com.apps.mineralidentyficationapp.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.apps.mineralidentyficationapp.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,13 +89,13 @@ public class MineralAdapter extends RecyclerView.Adapter<MineralAdapter.ViewHold
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                    mineralsToShow = (List<String>) filterResults.values;
-                    notifyDataSetChanged();
+                mineralsToShow = (List<String>) filterResults.values;
+                notifyDataSetChanged();
             }
         };
     }
 
-    private static List<String> processMineralList(List<String> minerals, Map<String, Double> classificationMinerals){
+    private static List<String> processMineralList(List<String> minerals, Map<String, Double> classificationMinerals) {
         List<String> highestValues = classificationMinerals.entrySet().stream()
                 .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                 .map(Map.Entry::getKey)
@@ -113,8 +113,7 @@ public class MineralAdapter extends RecyclerView.Adapter<MineralAdapter.ViewHold
         return result;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder //implements View.OnClickListener
-     {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
@@ -124,10 +123,10 @@ public class MineralAdapter extends RecyclerView.Adapter<MineralAdapter.ViewHold
             TextView percentageTextView = itemView.findViewById(R.id.mineralPercentageTextView);
 
             nameTextView.setText(mineralName);
-            if(mineralPercentage > 0.00){
+            if (mineralPercentage > 0.00) {
                 percentageTextView.setText(String.format(" %.2f%%", mineralPercentage));
 
-            }else{
+            } else {
                 percentageTextView.setText("");
             }
             itemView.setOnClickListener(view -> {

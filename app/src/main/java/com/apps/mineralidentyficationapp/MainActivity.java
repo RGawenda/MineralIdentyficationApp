@@ -18,14 +18,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import io.reactivex.Observable;
 
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView result;
     private Context context;
     private ProgressDialog progressDialog;
-    private int imageSize = 32;
+    private int imageSize = 256;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,18 +99,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showClassificationResult(Map<String, Double> resultMap, List<String> names) {
+    private void showClassificationResult(Map<String, Double> resultMap, List<String> names, Bitmap image) {
         Intent intent = new Intent(context, ClassificationResultActivity.class);
         intent.putExtra("mineralList", (Serializable) resultMap);
         intent.putExtra("names", (Serializable) names);
+        List<Bitmap> images = Collections.singletonList(image);
 
+        intent.putExtra("images", (Serializable) images);
         context.startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK){
-            if(requestCode == 3){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 3) {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 int dimension = Math.min(image.getWidth(), image.getHeight());
                 image = ThumbnailUtils.extractThumbnail(image, dimension, dimension);
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
                 sendToClassification(image);
 
-            }else{
+            } else {
                 Uri dat = data.getData();
                 Bitmap image = null;
                 try {
@@ -133,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void downloadMineralsNames(Map<String, Double> result){
+    private void downloadMineralsNames(Map<String, Double> result, Bitmap fullImage) {
         MineralAppApiClient myApiClient = new MineralAppApiClient(context);
 
         showLoading();
@@ -143,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(List<String> mineralsResult) {
                 Log.i("downloadMineralsNames", "success");
                 hideLoading();
-                showClassificationResult(result, mineralsResult);
+                showClassificationResult(result, mineralsResult, fullImage);
             }
 
             @Override
@@ -154,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void sendToClassification(Bitmap image){
+    private void sendToClassification(Bitmap image) {
         MineralAppApiClient myApiClient = new MineralAppApiClient(context);
         Map<String, Double> classificationResult;
         List<String> mineralsList;
@@ -165,18 +171,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Map<String, Double> result) {
                 Log.i("classification", "success");
-                downloadMineralsNames(result);
+                downloadMineralsNames(result, image);
                 hideLoading();
             }
+
             @Override
             public void onError(String errorMessage) {
-                Log.i("classification", "error: "+ errorMessage);
+                Log.i("classification", "error: " + errorMessage);
                 hideLoading();
             }
         }, image);
-
-
-
 
     }
 

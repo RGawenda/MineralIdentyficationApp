@@ -1,4 +1,4 @@
-package com.gymapps.mineralidentyficationapp;
+package com.apps.mineralidentyficationapp;
 
 import android.content.Context;
 

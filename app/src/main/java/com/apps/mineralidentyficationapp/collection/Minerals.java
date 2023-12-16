@@ -3,11 +3,12 @@ package com.apps.mineralidentyficationapp.collection;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Builder
+@NoArgsConstructor
 public class Minerals {
     private String mineralName;
     private Double mohsScale;

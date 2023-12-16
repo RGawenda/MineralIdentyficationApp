@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class MineralsIdentificationConfig {
 
-    public static String getConfigProperties(Context context, String propertiesName){
+    public static String getConfigProperties(Context context, String propertiesName) {
         Resources resources = context.getResources();
         InputStream rawResource = resources.openRawResource(R.raw.config);
         Properties properties = new Properties();

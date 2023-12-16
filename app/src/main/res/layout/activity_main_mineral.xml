@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMineralActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/imageViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:contentDescription="images"
+            />
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageViewPager"
+        android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            <Button
+                android:id="@+id/addImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="camera"/>
+
+            <Button
+                android:id="@+id/addImageFromGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gallery"/>
+
+            <Button
+                android:id="@+id/deleteImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="delete image"/>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Name" />
+
+        <EditText
+            android:id="@+id/editTextValue"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Value" />
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <EditText
+            android:id="@+id/editTextWeight"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Weight" />
+
+
+        <EditText
+            android:id="@+id/editTextSize"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Size" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <EditText
+            android:id="@+id/editTextInclusion"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Inclusion" />
+
+        <EditText
+            android:id="@+id/editTextClarity"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Clarity" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/editTextComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Comment"
+            android:maxLines="3" />
+
+            <EditText
+                android:id="@+id/discoveryPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="discovery place"
+                android:maxLines="3" />
+
+        <EditText
+            android:id="@+id/editTextTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tags" />
+
+        <Spinner
+            android:id="@+id/spinnerMineralName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--            android:entries="@array/mineral_names" -->
+
+        <TextView
+            android:id="@+id/mineralNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="mineral name"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        <TextView
+            android:id="@+id/mohsScaleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="mineral name"/>
+
+        <TextView
+            android:id="@+id/chemicalFormulaTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="mineral name"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/occurrencePlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="mineral name"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/saveMineral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save"/>
+            <Button
+                android:id="@+id/deleteMineral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="delete"/>
+            </LinearLayout>
+        </LinearLayout>
+</RelativeLayout></androidx.core.widget.NestedScrollView>

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.config.MineralsIdentificationConfig;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationMessage;
@@ -28,8 +29,7 @@ public class MineralAppApiClient {
     private Disposable disposable;
 
 
-    public MineralAppApiClient(Context context)
-    {
+    public MineralAppApiClient(Context context) {
         String url = MineralsIdentificationConfig.getConfigProperties(context, "BASE_URL");
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -75,14 +75,14 @@ public class MineralAppApiClient {
         }
     }
 
-    public void addNewMineral(Bitmap image, Minerals mineral) {
-
-        ClassificationMessage classificationMessage = new ClassificationMessage();
-        classificationMessage.setAuthToken("f");
-        classificationMessage.setStringImage(convertBitmapToBase64(image));
-
-        Gson gson = new Gson();
-        String json = gson.toJson(classificationMessage);
-
+    public void addNewMineral(final RxCallback<MineralMessage> callback, MineralMessage mineralName) {
+        disposable = myApi.addMineralToCollection(mineralName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
     }
+
 }

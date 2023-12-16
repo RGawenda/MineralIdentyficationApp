@@ -14,12 +14,12 @@ public class MineralActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mineral);
         Bundle b = getIntent().getExtras();
         int value = -1;
-        if(b != null)
+        if (b != null)
             value = b.getInt("key");
 
         ImageView imageView = findViewById(R.id.min_image);
         TextView textView = findViewById(R.id.min_text);
-        String[] mineralName = {"kwarc_dymny","ametyst", "kwarc"};
+        String[] mineralName = {"kwarc_dymny", "ametyst", "kwarc"};
 
         int[] images = {R.drawable.image_0058362, R.drawable.image_0059505, R.drawable.kwarc7};
 

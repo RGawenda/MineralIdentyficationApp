@@ -1,5 +1,6 @@
 package com.apps.mineralidentyficationapp.rest;
 
+import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationResultMessage;
 
@@ -7,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Single;
-import retrofit2.Call;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -16,48 +18,49 @@ import retrofit2.http.Query;
 
 public interface MineralAppApi {
     // Classification
-    @GET("mineral-classification")
-    Single<Map<String, Double>> getClassification(@Query("image") String image);
+    @FormUrlEncoded
+    @POST("classification-rest/mineral-classification")
+    Single<Map<String, Double>> getClassification(@Field("image") String image);
 
-    @GET("get-minerals-names")
+    @GET("classification-rest/get-minerals-names")
     Single<List<String>> getMineralsNames();
 
-    @GET("get-mineral")
+    @GET("classification-rest/get-mineral")
     Single<Minerals> getMineral(@Query("mineralName") String mineralName);
 
-    @GET(value = "all-collection")
-    Call<ClassificationResultMessage> getCollections(@Query("param") String parameter);
+    @GET(value = "collection-rest/all-collection")
+    Single<ClassificationResultMessage> getCollections(@Query("param") String parameter);
 
-    @GET(value = "collected-mineral")
-    Call<ClassificationResultMessage> getMineralCollections(@Query("param") String parameter);
+    @GET(value = "collection-rest/collected-mineral")
+    Single<ClassificationResultMessage> getMineralCollections(@Query("param") String parameter);
 
     //CRUD Minerals in collection
-    @POST(value = "add-image-to-collection")
-    Call<ClassificationResultMessage> addMineralToCollection(@Query("image") String image, @Query("newMineral") String newMineral);
+    @POST(value = "collection-rest/add-image-to-collection")
+    Single<MineralMessage> addMineralToCollection(@Field("newMineral") MineralMessage newMineral);
 
-    @GET(value = "show-mineral")
-    Call<ClassificationResultMessage> getMineralFromCollection(@Query("mineralId") String mineralId);
+    @GET(value = "collection-rest/show-mineral")
+    Single<ClassificationResultMessage> getMineralFromCollection(@Query("mineralId") String mineralId);
 
-    @PUT(value = "edit-mineral-to-collection")
-    Call<ClassificationResultMessage> editMineralInCollection(@Query("mineralId") String mineralId, @Query("editedMineral") String editedMineral);
+    @PUT(value = "collection-rest/edit-mineral-to-collection")
+    Single<ClassificationResultMessage> editMineralInCollection(@Query("mineralId") String mineralId, @Query("editedMineral") String editedMineral);
 
-    @DELETE(value = "delete-mineral-to-collection")
-    Call<ClassificationResultMessage> deleteMineralFromCollection(@Query("mineralId") String mineralId);
+    @DELETE(value = "collection-rest/delete-mineral-to-collection")
+    Single<ClassificationResultMessage> deleteMineralFromCollection(@Query("mineralId") String mineralId);
 
     //CRUD image
     @POST(value = "add-image")
-    Call<ClassificationResultMessage> addImage(@Query("image") String image);
+    Single<ClassificationResultMessage> addImage(@Query("image") String image);
 
     @GET(value = "show-image")
-    Call<ClassificationResultMessage> getImage(@Query("imageId") String imageId);
+    Single<ClassificationResultMessage> getImage(@Query("imageId") String imageId);
 
     @PUT(value = "edit-image")
-    Call<ClassificationResultMessage> editImage(@Query("imageId") String imageId, @Query("mineral") String mineral);
+    Single<ClassificationResultMessage> editImage(@Query("imageId") String imageId, @Query("mineral") String mineral);
 
     @DELETE(value = "delete-image")
-    Call<ClassificationResultMessage> deleteImage(@Query("imageId") String imageId);
+    Single<ClassificationResultMessage> deleteImage(@Query("imageId") String imageId);
 
     //profile
     @GET(value = "show-profile")
-    Call<ClassificationResultMessage> showProfile(@Query("userId") String userId);
+    Single<ClassificationResultMessage> showProfile(@Query("userId") String userId);
 }

@@ -2,8 +2,8 @@ package com.apps.mineralidentyficationapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apps.mineralidentyficationapp.adapters.MineralAdapter;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import java.util.Map;
 public class ClassificationResultActivity extends AppCompatActivity {
     Map<String, Double> mineralList;
     List<String> names;
+    List<Bitmap> mineralBitmapList;
     private Button addMineralButton, addImageButton;
     String selectedMineralName = "";
 
@@ -35,6 +38,7 @@ public class ClassificationResultActivity extends AppCompatActivity {
         if (intent != null) {
             mineralList = (Map<String, Double>) intent.getSerializableExtra("mineralList");
             names = (List<String>) intent.getSerializableExtra("names");
+            mineralBitmapList = (List<Bitmap>) intent.getSerializableExtra("images");
         }
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         EditText searchEditText = findViewById(R.id.searchEditText);
@@ -46,7 +50,7 @@ public class ClassificationResultActivity extends AppCompatActivity {
 
         MineralAdapter adapter = new MineralAdapter(names, mineralList);
 
-        adapter.setOnItemClickListener(mineralName  -> {
+        adapter.setOnItemClickListener(mineralName -> {
             selectedText.setText(mineralName);
             selectedMineralName = mineralName;
         });
@@ -54,26 +58,30 @@ public class ClassificationResultActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-    searchEditText.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {}
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
 
-        @Override
-        public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            adapter.getFilter().filter(charSequence);
-        }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                adapter.getFilter().filter(charSequence);
+            }
 
-        @Override
-        public void afterTextChanged(Editable editable) {}
-    });
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
 
         addMineralButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context = view.getContext();
-                Intent intent = new Intent(context, MineralActivity.class);
+                Intent intent = new Intent(context, MainMineralActivity.class);
                 intent.putExtra("selectedMineralName", (Serializable) selectedMineralName);
+                intent.putExtra("mineralBitmapList", (Serializable) mineralBitmapList);
+                Log.i("selected mineral", selectedMineralName);
                 context.startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.apps.mineralidentyficationapp;
+package com.apps.mineralidentyficationapp.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.apps.mineralidentyficationapp.R;
+
 
 public class MineralInCollectionAdapter extends BaseAdapter {
     Context context;
@@ -17,11 +19,12 @@ public class MineralInCollectionAdapter extends BaseAdapter {
     int[] images;
     LayoutInflater layoutInflater;
 
-    public MineralInCollectionAdapter(Context context, String[] mineralNames, int[] images){
+    public MineralInCollectionAdapter(Context context, String[] mineralNames, int[] images) {
         this.context = context;
         this.mineralNames = mineralNames;
         this.images = images;
     }
+
     @Override
     public int getCount() {
         return mineralNames.length;
@@ -43,7 +46,7 @@ public class MineralInCollectionAdapter extends BaseAdapter {
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-        if (view == null){
+        if (view == null) {
             view = layoutInflater.inflate(R.layout.mineral_item, null);
         }
 
