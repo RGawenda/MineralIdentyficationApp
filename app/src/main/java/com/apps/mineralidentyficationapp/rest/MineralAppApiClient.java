@@ -59,6 +59,16 @@ public class MineralAppApiClient {
                 );
     }
 
+    public void getCollection(final RxCallback<List<MineralMessage>> callback, int page, int pageSize, String username) {
+        disposable = myApi.getCollections(page, pageSize, username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
     public void getMineral(final RxCallback<Minerals> callback, String mineralName) {
         disposable = myApi.getMineral(mineralName)
                 .subscribeOn(Schedulers.io())
@@ -75,8 +85,8 @@ public class MineralAppApiClient {
         }
     }
 
-    public void addNewMineral(final RxCallback<MineralMessage> callback, MineralMessage mineralName) {
-        disposable = myApi.addMineralToCollection(mineralName)
+    public void addNewMineral(final RxCallback<MineralMessage> callback,Long id,  MineralMessage mineralName) {
+        disposable = myApi.addMineralToCollection(id, mineralName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -1,12 +1,16 @@
 package com.apps.mineralidentyficationapp;
 
+import static com.apps.mineralidentyficationapp.utils.FileUtils.convertBase64ListToBitmap;
 import static com.apps.mineralidentyficationapp.utils.FileUtils.convertListBitmapToBase64;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +18,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.mineralidentyficationapp.adapters.ImagePagerAdapter;
+import com.apps.mineralidentyficationapp.adapters.TagsAdapter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
@@ -40,15 +46,22 @@ public class MainMineralActivity extends AppCompatActivity {
             editTextInclusion, editTextClarity, editTextComment, editTextTags, discoveryPlace;
     private Spinner spinnerMineralName;
 
-    private Button galleryButton, cameraButton, saveButton, deleteButton, deleteImageButton;
+    private Button galleryButton, cameraButton, saveButton, deleteButton, deleteImageButton, addTag;
 
     MineralAppApiClient myApiClient;
 
     private TextView mineralName, mohsScale, chemicalFormula, occurrencePlace;
     private ImagePagerAdapter imagePagerAdapter;
     List<String> mineralsList;
+    List<String> tagsList = new ArrayList<>();
     List<Bitmap> mineralBitmapList;
     String selectedMineral = "";
+
+    MineralMessage mineralMessage;
+
+    private TagsAdapter adapter;
+    Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +90,26 @@ public class MainMineralActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveMineral);
         deleteButton = findViewById(R.id.deleteMineral);
         deleteImageButton = findViewById(R.id.deleteImage);
+        addTag = findViewById(R.id.addTagButton);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new TagsAdapter(tagsList);
+        recyclerView.setAdapter(adapter);
+
+
         setupDeleteImageButton();
         Intent intent = getIntent();
         if (intent != null) {
-            selectedMineral = (String) intent.getSerializableExtra("selectedMineralName");
-            Log.i("reciv", selectedMineral);
-            mineralBitmapList = (List<Bitmap>) intent.getSerializableExtra("mineralBitmapList");
+            mineralMessage = (MineralMessage) intent.getSerializableExtra("mineralMessage");
+            if(mineralMessage != null && !mineralMessage.getImages().isEmpty()){
+                selectedMineral = mineralMessage.getMineralName();
+                mineralBitmapList = convertBase64ListToBitmap(mineralMessage.getImages());
+            }
+
         }
+
+        context = getBaseContext();
 
         downloadMineralsList();
 
@@ -96,18 +122,15 @@ public class MainMineralActivity extends AppCompatActivity {
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // Dodaj tutaj kod, który ma być wywołany podczas przewijania
             }
 
             @Override
             public void onPageSelected(int position) {
-                // Dodaj tutaj kod, który ma być wywołany po wybraniu konkretnej strony
                 Toast.makeText(MainMineralActivity.this, "Wybrano stronę " + (position + 1), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                // Dodaj tutaj kod, który ma być wywołany po zmianie stanu przewijania
             }
         });
 
@@ -148,13 +171,27 @@ public class MainMineralActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (valid()) {
                     addMineral(getMessage());
+
                 }
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
+        addTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editTextTags.getText().toString();
+                if (!TextUtils.isEmpty(text)) {
+                    tagsList.add(text);
+                    adapter.notifyItemInserted(tagsList.size() - 1);
+                    editTextTags.getText().clear();
+                }
             }
         });
     }
@@ -214,7 +251,12 @@ public class MainMineralActivity extends AppCompatActivity {
     }
 
     private boolean valid() {
-        return false;
+        if(editTextName.length() > 0){
+            return true;
+        }else {
+            Toast.makeText(context,"name no be null",Toast.LENGTH_LONG).show();
+            return false;
+        }
     }
 
 
@@ -230,6 +272,7 @@ public class MainMineralActivity extends AppCompatActivity {
                 .clarity(editTextClarity.getText().toString())
                 .inclusion(editTextInclusion.getText().toString())
                 .images(convertListBitmapToBase64(mineralBitmapList))
+                .tags(tagsList)
                 .build();
     }
 
@@ -247,20 +290,21 @@ public class MainMineralActivity extends AppCompatActivity {
         //mineralBitmapList.addAll(message.getImages());
         //imagePagerAdapter.updateData(mineralBitmapList);
     }
-
+    Long id = 1L;
     private void addMineral(MineralMessage mineralMessage) {
         myApiClient.addNewMineral(new RxCallback<>() {
             @Override
             public void onSuccess(MineralMessage minerals) {
-                Log.i("getMineralStats", "success");
-
+                Log.i("addMineral", "success");
+                Intent myIntent = new Intent(context, MainActivity.class);
+                startActivity(myIntent);
             }
 
             @Override
             public void onError(String errorMessage) {
-                Log.i("getMineralStats", "error: " + errorMessage);
+                Log.i("addMineral", "error: " + errorMessage);
             }
-        }, mineralMessage);
+        },id, mineralMessage);
 
     }
 
@@ -272,7 +316,12 @@ public class MainMineralActivity extends AppCompatActivity {
 
                 if (minerals != null) {
                     mineralName.setText(minerals.getMineralName());
-                    mohsScale.setText(minerals.getMohsScale().toString());
+                    if(minerals.getMohsScale() != null){
+                        mohsScale.setText(Double.toString(minerals.getMohsScale()));
+                    }else {
+                        mohsScale.setText("no data");
+
+                    }
                     chemicalFormula.setText(minerals.getChemicalFormula());
                     occurrencePlace.setText(minerals.getOccurrencePlace());
                 }

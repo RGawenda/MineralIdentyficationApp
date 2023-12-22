@@ -1,5 +1,7 @@
 package com.apps.mineralidentyficationapp;
 
+import static com.apps.mineralidentyficationapp.utils.FileUtils.convertListBitmapToBase64;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.mineralidentyficationapp.adapters.MineralAdapter;
+import com.apps.mineralidentyficationapp.collection.MineralMessage;
 
 import java.io.Serializable;
 import java.util.List;
@@ -47,7 +50,7 @@ public class ClassificationResultActivity extends AppCompatActivity {
 
         addMineralButton = findViewById(R.id.addToCollectionNewMineral);
         addImageButton = findViewById(R.id.addToCollectionAsImage);
-
+        selectedMineralName = names.get(0);
         MineralAdapter adapter = new MineralAdapter(names, mineralList);
 
         adapter.setOnItemClickListener(mineralName -> {
@@ -77,11 +80,12 @@ public class ClassificationResultActivity extends AppCompatActivity {
         addMineralButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MineralMessage mineralMessage = new MineralMessage();
+                mineralMessage.setMineralName(selectedMineralName);
+                mineralMessage.setImages(convertListBitmapToBase64(mineralBitmapList));
                 Context context = view.getContext();
                 Intent intent = new Intent(context, MainMineralActivity.class);
-                intent.putExtra("selectedMineralName", (Serializable) selectedMineralName);
-                intent.putExtra("mineralBitmapList", (Serializable) mineralBitmapList);
-                Log.i("selected mineral", selectedMineralName);
+                intent.putExtra("mineralMessage", mineralMessage);
                 context.startActivity(intent);
             }
         });

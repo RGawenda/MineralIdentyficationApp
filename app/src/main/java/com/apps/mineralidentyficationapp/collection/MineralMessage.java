@@ -1,5 +1,6 @@
 package com.apps.mineralidentyficationapp.collection;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MineralMessage {
+public class MineralMessage implements Serializable {
     private Long id;
     private String name;
     private String comment;

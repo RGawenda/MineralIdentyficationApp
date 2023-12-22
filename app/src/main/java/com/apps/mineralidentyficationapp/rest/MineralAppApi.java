@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -29,17 +30,17 @@ public interface MineralAppApi {
     Single<Minerals> getMineral(@Query("mineralName") String mineralName);
 
     @GET(value = "collection-rest/all-collection")
-    Single<ClassificationResultMessage> getCollections(@Query("param") String parameter);
+    Single<List<MineralMessage>> getCollections(@Query("page") int page, @Query("pageSize") int pageSize, @Query("username") String username);
 
     @GET(value = "collection-rest/collected-mineral")
     Single<ClassificationResultMessage> getMineralCollections(@Query("param") String parameter);
 
-    //CRUD Minerals in collection
-    @POST(value = "collection-rest/add-image-to-collection")
-    Single<MineralMessage> addMineralToCollection(@Field("newMineral") MineralMessage newMineral);
+    //CRUD Minerals in collectio
+    @POST(value = "collection-rest/add-mineral-to-collection")
+    Single<MineralMessage> addMineralToCollection(@Query("id") Long id, @Body MineralMessage mineral);
 
     @GET(value = "collection-rest/show-mineral")
-    Single<ClassificationResultMessage> getMineralFromCollection(@Query("mineralId") String mineralId);
+    Single<Minerals> getMineralFromCollection(@Query("mineralId") String mineralId);
 
     @PUT(value = "collection-rest/edit-mineral-to-collection")
     Single<ClassificationResultMessage> editMineralInCollection(@Query("mineralId") String mineralId, @Query("editedMineral") String editedMineral);
