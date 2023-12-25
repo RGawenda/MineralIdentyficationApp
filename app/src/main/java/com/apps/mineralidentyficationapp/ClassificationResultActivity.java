@@ -93,10 +93,12 @@ public class ClassificationResultActivity extends AppCompatActivity {
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MineralMessage mineralMessage = new MineralMessage();
+                mineralMessage.setMineralName(selectedMineralName);
+                mineralMessage.setImages(convertListBitmapToBase64(mineralBitmapList));
                 Context context = view.getContext();
-                Intent intent = new Intent(context, MineralActivity.class);
-                intent.putExtra("selectedMineralName", (Serializable) selectedMineralName);
-
+                Intent intent = new Intent(context, MainMineralActivity.class);
+                intent.putExtra("mineralMessage", mineralMessage);
                 context.startActivity(intent);
             }
         });

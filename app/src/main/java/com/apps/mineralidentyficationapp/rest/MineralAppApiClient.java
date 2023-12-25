@@ -95,4 +95,24 @@ public class MineralAppApiClient {
                 );
     }
 
+    public void deleteMineral(final RxCallback<Object> callback,Long id) {
+        disposable = myApi.deleteMineralFromCollection(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void editMineral(final RxCallback<MineralMessage> callback, Long id, MineralMessage mineralMessage) {
+        disposable = myApi.editMineralInCollection(id, mineralMessage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
 }

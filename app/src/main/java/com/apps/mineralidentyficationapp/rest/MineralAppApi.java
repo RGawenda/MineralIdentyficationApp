@@ -42,24 +42,15 @@ public interface MineralAppApi {
     @GET(value = "collection-rest/show-mineral")
     Single<Minerals> getMineralFromCollection(@Query("mineralId") String mineralId);
 
-    @PUT(value = "collection-rest/edit-mineral-to-collection")
-    Single<ClassificationResultMessage> editMineralInCollection(@Query("mineralId") String mineralId, @Query("editedMineral") String editedMineral);
+    @PUT(value = "collection-rest/edit-mineral-in-collection")
+    Single<MineralMessage> editMineralInCollection(@Query("id") Long id, @Body MineralMessage editedMineralMessage);
 
-    @DELETE(value = "collection-rest/delete-mineral-to-collection")
-    Single<ClassificationResultMessage> deleteMineralFromCollection(@Query("mineralId") String mineralId);
+    @DELETE(value = "collection-rest/delete-mineral-from-collection")
+    Single<Object> deleteMineralFromCollection(@Query("id") Long id);
 
     //CRUD image
-    @POST(value = "add-image")
-    Single<ClassificationResultMessage> addImage(@Query("image") String image);
-
     @GET(value = "show-image")
     Single<ClassificationResultMessage> getImage(@Query("imageId") String imageId);
-
-    @PUT(value = "edit-image")
-    Single<ClassificationResultMessage> editImage(@Query("imageId") String imageId, @Query("mineral") String mineral);
-
-    @DELETE(value = "delete-image")
-    Single<ClassificationResultMessage> deleteImage(@Query("imageId") String imageId);
 
     //profile
     @GET(value = "show-profile")

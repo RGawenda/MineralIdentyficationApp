@@ -55,12 +55,15 @@ public class MainMineralActivity extends AppCompatActivity {
     List<String> mineralsList;
     List<String> tagsList = new ArrayList<>();
     List<Bitmap> mineralBitmapList;
+    List<Long> imagesID = new ArrayList<>();
     String selectedMineral = "";
 
     MineralMessage mineralMessage;
 
     private TagsAdapter adapter;
     Context context;
+
+    Long id = 1L;
 
 
     @Override
@@ -97,16 +100,17 @@ public class MainMineralActivity extends AppCompatActivity {
         adapter = new TagsAdapter(tagsList);
         recyclerView.setAdapter(adapter);
 
-
-        setupDeleteImageButton();
         Intent intent = getIntent();
         if (intent != null) {
             mineralMessage = (MineralMessage) intent.getSerializableExtra("mineralMessage");
-            if(mineralMessage != null && !mineralMessage.getImages().isEmpty()){
+            if (mineralMessage != null && !mineralMessage.getImages().isEmpty()) {
                 selectedMineral = mineralMessage.getMineralName();
                 mineralBitmapList = convertBase64ListToBitmap(mineralMessage.getImages());
             }
 
+            if (mineralMessage.getId() != null) {
+                loadMineralData(mineralMessage);
+            }
         }
 
         context = getBaseContext();
@@ -115,9 +119,18 @@ public class MainMineralActivity extends AppCompatActivity {
 
         downloadMineralInfo();
 
-
         imagePagerAdapter = new ImagePagerAdapter(this, mineralBitmapList);
         imageViewPager.setAdapter(imagePagerAdapter);
+
+        deleteImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentPosition = imageViewPager.getCurrentItem();
+                if (currentPosition >= 0 && currentPosition < mineralBitmapList.size()) {
+                    deletePhoto(currentPosition);
+                }
+            }
+        });
 
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -147,7 +160,6 @@ public class MainMineralActivity extends AppCompatActivity {
             }
         });
 
-
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,14 +182,21 @@ public class MainMineralActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (valid()) {
-                    addMineral(getMessage());
-
+                    if (mineralMessage.getId() != null) {
+                        updateMineral(getMessage());
+                    } else {
+                        addMineral(getMessage());
+                    }
                 }
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mineralMessage.getId() != null) {
+                    deleteMineral();
+                }
+
                 Intent myIntent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(myIntent);
             }
@@ -225,42 +244,60 @@ public class MainMineralActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void setupDeleteImageButton() {
-        deleteImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int currentPosition = imageViewPager.getCurrentItem();
-                if (currentPosition >= 0 && currentPosition < mineralBitmapList.size()) {
-                    deletePhoto(currentPosition);
-                }
-            }
-        });
-    }
 
     private void deletePhoto(int position) {
         if (!mineralBitmapList.isEmpty() && position >= 0 && position < mineralBitmapList.size()) {
             mineralBitmapList.remove(position);
+            if(mineralMessage.getId() != null && position < mineralMessage.getImagesID().size()){
+                Log.i("position: ", ""+position);
+                Log.i("id to delete: ",mineralMessage.getImagesID().get(position).toString());
+                imagesID.add(mineralMessage.getImagesID().get(position));
+                mineralMessage.getImagesID().remove(position);
+            }
+
             imagePagerAdapter.updateData(mineralBitmapList);
             imagePagerAdapter.notifyDataSetChanged();
-            Log.i("delete", "delete :"+position);
+            Log.i("delete", "delete :" + position);
             imageViewPager.setAdapter(imagePagerAdapter);
-            int newPosition = Math.min(position, mineralBitmapList.size()-1);
+            int newPosition = Math.min(position, mineralBitmapList.size() - 1);
             imageViewPager.setCurrentItem(newPosition, true);
 
         }
     }
 
     private boolean valid() {
-        if(editTextName.length() > 0){
+        if (editTextName.length() > 0) {
             return true;
-        }else {
-            Toast.makeText(context,"name no be null",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "name no be null", Toast.LENGTH_LONG).show();
             return false;
         }
     }
 
 
     private MineralMessage getMessage() {
+        if(mineralMessage.getId() != null){
+            mineralMessage.setMineralName(mineralName.getText().toString());
+            mineralMessage.setName(editTextName.getText().toString());
+            mineralMessage.setComment(editTextComment.getText().toString());
+            mineralMessage.setSize(editTextSize.getText().toString());
+            mineralMessage.setDiscoveryPlace(discoveryPlace.getText().toString());
+            mineralMessage.setWeight(editTextWeight.getText().toString());
+            mineralMessage.setValue(editTextValue.getText().toString());
+            mineralMessage.setClarity(editTextClarity.getText().toString());
+            mineralMessage.setInclusion(editTextInclusion.getText().toString());
+            List<String> toSend = convertListBitmapToBase64(mineralBitmapList);
+
+            if (mineralMessage.getImagesID().size() > 0) {
+                toSend.subList(0, mineralMessage.getImagesID().size()).clear();
+            }
+
+            mineralMessage.setImages(toSend);
+            mineralMessage.setDeletedImages(imagesID);
+            mineralMessage.setTags(tagsList);
+            return mineralMessage;
+        }
+
         return MineralMessage.builder()
                 .mineralName(mineralName.getText().toString())
                 .name(editTextName.getText().toString())
@@ -277,7 +314,6 @@ public class MainMineralActivity extends AppCompatActivity {
     }
 
     private void loadMineralData(MineralMessage message) {
-
         mineralName.setText(message.getMineralName());
         editTextName.setText(message.getName());
         editTextComment.setText(message.getComment());
@@ -287,10 +323,10 @@ public class MainMineralActivity extends AppCompatActivity {
         editTextValue.setText(message.getValue());
         editTextClarity.setText(message.getClarity());
         editTextInclusion.setText(message.getInclusion());
-        //mineralBitmapList.addAll(message.getImages());
-        //imagePagerAdapter.updateData(mineralBitmapList);
+        tagsList.addAll(mineralMessage.getTags());
     }
-    Long id = 1L;
+
+
     private void addMineral(MineralMessage mineralMessage) {
         myApiClient.addNewMineral(new RxCallback<>() {
             @Override
@@ -304,7 +340,7 @@ public class MainMineralActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("addMineral", "error: " + errorMessage);
             }
-        },id, mineralMessage);
+        }, id, mineralMessage);
 
     }
 
@@ -316,9 +352,9 @@ public class MainMineralActivity extends AppCompatActivity {
 
                 if (minerals != null) {
                     mineralName.setText(minerals.getMineralName());
-                    if(minerals.getMohsScale() != null){
+                    if (minerals.getMohsScale() != null) {
                         mohsScale.setText(Double.toString(minerals.getMohsScale()));
-                    }else {
+                    } else {
                         mohsScale.setText("no data");
 
                     }
@@ -339,7 +375,7 @@ public class MainMineralActivity extends AppCompatActivity {
         myApiClient.getMineralsNames(new RxCallback<>() {
             @Override
             public void onSuccess(List<String> result) {
-                Log.i("classification", "success");
+                Log.i("downloadMineralsList", "success");
                 mineralsList = result;
                 ArrayAdapter<String> mineralAdapter = new ArrayAdapter<>(MainMineralActivity.this, android.R.layout.simple_spinner_item, result);
                 mineralAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -353,8 +389,39 @@ public class MainMineralActivity extends AppCompatActivity {
 
             @Override
             public void onError(String errorMessage) {
-                Log.i("classification", "error: " + errorMessage);
+                Log.i("downloadMineralsList", "error: " + errorMessage);
             }
         });
+    }
+
+    private void updateMineral(MineralMessage toSend) {
+        myApiClient.editMineral(new RxCallback<>() {
+            @Override
+            public void onSuccess(MineralMessage result) {
+                Log.i("updateMineral", "success");
+                Intent myIntent = new Intent(context, CollectionActivity.class);
+                startActivity(myIntent);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.i("updateMineral", "error: " + errorMessage);
+            }
+        },id, toSend);
+    }
+
+    private void deleteMineral() {
+        myApiClient.deleteMineral(new RxCallback<>() {
+            @Override
+            public void onSuccess(Object result) {
+                Log.i("deleteMineral", "success");
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.i("deleteMineral", "error: " + errorMessage);
+            }
+        }, mineralMessage.getId());
     }
 }

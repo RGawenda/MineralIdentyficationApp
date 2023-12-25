@@ -78,7 +78,6 @@ public class MineralInCollectionAdapter extends BaseAdapter {
     private void loadMoreData() {
         if (!isLoading && hasMoreData) {
             isLoading = true;
-            currentPage++;
 
             MineralAppApiClient myApiClient = new MineralAppApiClient(context);
 
@@ -102,6 +101,7 @@ public class MineralInCollectionAdapter extends BaseAdapter {
                     isLoading = false;
                 }
             }, currentPage, pageSize, username);
+            currentPage++;
         }
     }
 
