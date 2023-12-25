@@ -85,7 +85,7 @@ public class MineralAppApiClient {
         }
     }
 
-    public void addNewMineral(final RxCallback<MineralMessage> callback,Long id,  MineralMessage mineralName) {
+    public void addNewMineral(final RxCallback<MineralMessage> callback, Long id, MineralMessage mineralName) {
         disposable = myApi.addMineralToCollection(id, mineralName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,7 +95,7 @@ public class MineralAppApiClient {
                 );
     }
 
-    public void deleteMineral(final RxCallback<Object> callback,Long id) {
+    public void deleteMineral(final RxCallback<Object> callback, Long id) {
         disposable = myApi.deleteMineralFromCollection(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

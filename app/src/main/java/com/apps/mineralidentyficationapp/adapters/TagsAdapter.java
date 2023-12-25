@@ -52,7 +52,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     }
 
     private void removeRecord(int position) {
-        Log.i("deleteTag", "delete:"+position);
+        Log.i("deleteTag", "delete:" + position);
         if (position >= 0 && position < records.size()) {
             records.remove(position);
             notifyDataSetChanged();

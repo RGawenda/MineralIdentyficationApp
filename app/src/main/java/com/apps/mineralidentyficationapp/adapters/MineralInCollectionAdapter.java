@@ -89,7 +89,7 @@ public class MineralInCollectionAdapter extends BaseAdapter {
                         Log.i("loadMoreData", "set");
                         itemList = mineralsResult;
                         notifyDataSetChanged();
-                    }else {
+                    } else {
                         hasMoreData = false;
                     }
                     isLoading = false;

@@ -248,9 +248,9 @@ public class MainMineralActivity extends AppCompatActivity {
     private void deletePhoto(int position) {
         if (!mineralBitmapList.isEmpty() && position >= 0 && position < mineralBitmapList.size()) {
             mineralBitmapList.remove(position);
-            if(mineralMessage.getId() != null && position < mineralMessage.getImagesID().size()){
-                Log.i("position: ", ""+position);
-                Log.i("id to delete: ",mineralMessage.getImagesID().get(position).toString());
+            if (mineralMessage.getId() != null && position < mineralMessage.getImagesID().size()) {
+                Log.i("position: ", "" + position);
+                Log.i("id to delete: ", mineralMessage.getImagesID().get(position).toString());
                 imagesID.add(mineralMessage.getImagesID().get(position));
                 mineralMessage.getImagesID().remove(position);
             }
@@ -276,7 +276,7 @@ public class MainMineralActivity extends AppCompatActivity {
 
 
     private MineralMessage getMessage() {
-        if(mineralMessage.getId() != null){
+        if (mineralMessage.getId() != null) {
             mineralMessage.setMineralName(mineralName.getText().toString());
             mineralMessage.setName(editTextName.getText().toString());
             mineralMessage.setComment(editTextComment.getText().toString());
@@ -407,7 +407,7 @@ public class MainMineralActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("updateMineral", "error: " + errorMessage);
             }
-        },id, toSend);
+        }, id, toSend);
     }
 
     private void deleteMineral() {

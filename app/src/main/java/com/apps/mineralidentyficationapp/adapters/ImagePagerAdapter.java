@@ -46,6 +46,7 @@ public class ImagePagerAdapter extends PagerAdapter {
 
         return itemView;
     }
+
     public void updateData(List<Bitmap> newData) {
         this.imageList = newData;
         notifyDataSetChanged();

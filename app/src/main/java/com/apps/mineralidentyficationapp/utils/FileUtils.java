@@ -27,7 +27,7 @@ public class FileUtils {
 
     public static List<Bitmap> convertBase64ListToBitmap(List<String> base64Strings) {
         List<Bitmap> convertedImages = new ArrayList<>();
-        for(String image: base64Strings){
+        for (String image : base64Strings) {
             convertedImages.add(convertBase64ToBitmap(image));
         }
         return convertedImages;
@@ -36,7 +36,7 @@ public class FileUtils {
     public static List<String> convertListBitmapToBase64(List<Bitmap> images) {
         List<String> convertedImages = new ArrayList<>();
         for (Bitmap image : images) {
-        convertedImages.add(convertBitmapToBase64(image));
+            convertedImages.add(convertBitmapToBase64(image));
         }
         return convertedImages;
     }

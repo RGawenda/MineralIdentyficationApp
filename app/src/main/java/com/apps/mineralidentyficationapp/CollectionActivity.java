@@ -92,7 +92,7 @@ public class CollectionActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("downloadMineralsNames", "error: " + errorMessage);
             }
-        },currentPage, pageSize, username);
+        }, currentPage, pageSize, username);
     }
 
 }
