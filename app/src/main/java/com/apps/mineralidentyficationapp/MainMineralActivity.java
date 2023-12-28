@@ -73,29 +73,29 @@ public class MainMineralActivity extends AppCompatActivity {
         myApiClient = new MineralAppApiClient(getBaseContext());
         setContentView(R.layout.activity_main_mineral);
 
-        imageViewPager = findViewById(R.id.imageViewPager);
-        editTextName = findViewById(R.id.editTextName);
-        editTextValue = findViewById(R.id.editTextValue);
-        editTextWeight = findViewById(R.id.editTextWeight);
-        editTextSize = findViewById(R.id.editTextSize);
-        editTextInclusion = findViewById(R.id.editTextInclusion);
-        editTextClarity = findViewById(R.id.editTextClarity);
-        editTextComment = findViewById(R.id.editTextComment);
-        editTextTags = findViewById(R.id.editTextTags);
-        spinnerMineralName = findViewById(R.id.spinnerMineralName);
-        mineralName = findViewById(R.id.mineralNameTextView);
-        mohsScale = findViewById(R.id.mohsScaleTextView);
-        chemicalFormula = findViewById(R.id.chemicalFormulaTextView);
-        occurrencePlace = findViewById(R.id.occurrencePlaceTextView);
-        discoveryPlace = findViewById(R.id.discoveryPlace);
-        cameraButton = findViewById(R.id.addImage);
-        galleryButton = findViewById(R.id.addImageFromGallery);
-        saveButton = findViewById(R.id.saveMineral);
-        deleteButton = findViewById(R.id.deleteMineral);
-        deleteImageButton = findViewById(R.id.deleteImage);
-        addTag = findViewById(R.id.addTagButton);
+        imageViewPager = findViewById(R.id.mineralImageViewPager);
+        editTextName = findViewById(R.id.mineralEditTextName);
+        editTextValue = findViewById(R.id.mineralEditTextValue);
+        editTextWeight = findViewById(R.id.mineralEditTextWeight);
+        editTextSize = findViewById(R.id.mineralEditTextSize);
+        editTextInclusion = findViewById(R.id.mineralEditTextInclusion);
+        editTextClarity = findViewById(R.id.mineralEditTextClarity);
+        editTextComment = findViewById(R.id.mineralEditTextComment);
+        editTextTags = findViewById(R.id.mineralEditTextTags);
+        spinnerMineralName = findViewById(R.id.mineralSpinnerMineralName);
+        mineralName = findViewById(R.id.mineralItemMineralNameTextView);
+        mohsScale = findViewById(R.id.mineralMohsScaleTextView);
+        chemicalFormula = findViewById(R.id.mineralChemicalFormulaTextView);
+        occurrencePlace = findViewById(R.id.mineralOccurrencePlaceTextView);
+        discoveryPlace = findViewById(R.id.mineralEditTextDiscoveryPlace);
+        cameraButton = findViewById(R.id.mineralAddImageButton);
+        galleryButton = findViewById(R.id.mineralAddImageGalleryButton);
+        saveButton = findViewById(R.id.mineralSaveMineralButton);
+        deleteButton = findViewById(R.id.mineralDeleteMineralButton);
+        deleteImageButton = findViewById(R.id.mineralDeleteImageButton);
+        addTag = findViewById(R.id.mineralAddTagButton);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.mineralRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TagsAdapter(tagsList);
         recyclerView.setAdapter(adapter);
@@ -139,7 +139,6 @@ public class MainMineralActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(MainMineralActivity.this, "Wybrano stronę " + (position + 1), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -280,10 +279,10 @@ public class MainMineralActivity extends AppCompatActivity {
             mineralMessage.setMineralName(mineralName.getText().toString());
             mineralMessage.setName(editTextName.getText().toString());
             mineralMessage.setComment(editTextComment.getText().toString());
-            mineralMessage.setSize(editTextSize.getText().toString());
+            mineralMessage.setSize(getDoubleFromString(editTextSize.getText().toString()));
             mineralMessage.setDiscoveryPlace(discoveryPlace.getText().toString());
-            mineralMessage.setWeight(editTextWeight.getText().toString());
-            mineralMessage.setValue(editTextValue.getText().toString());
+            mineralMessage.setWeight(getDoubleFromString(editTextWeight.getText().toString()));
+            mineralMessage.setValue(getDoubleFromString(editTextValue.getText().toString()));
             mineralMessage.setClarity(editTextClarity.getText().toString());
             mineralMessage.setInclusion(editTextInclusion.getText().toString());
             List<String> toSend = convertListBitmapToBase64(mineralBitmapList);
@@ -302,10 +301,10 @@ public class MainMineralActivity extends AppCompatActivity {
                 .mineralName(mineralName.getText().toString())
                 .name(editTextName.getText().toString())
                 .comment(editTextComment.getText().toString())
-                .size(editTextSize.getText().toString())
+                .size(getDoubleFromString(editTextSize.getText().toString()))
                 .discoveryPlace(discoveryPlace.getText().toString())
-                .weight(editTextWeight.getText().toString())
-                .value(editTextValue.getText().toString())
+                .weight(getDoubleFromString(editTextWeight.getText().toString()))
+                .value(getDoubleFromString(editTextValue.getText().toString()))
                 .clarity(editTextClarity.getText().toString())
                 .inclusion(editTextInclusion.getText().toString())
                 .images(convertListBitmapToBase64(mineralBitmapList))
@@ -313,14 +312,19 @@ public class MainMineralActivity extends AppCompatActivity {
                 .build();
     }
 
+    public static Double getDoubleFromString(String value) {
+        Log.i("convertToDouble", value);
+        return !value.isEmpty() ? Double.parseDouble(value) : 0.00;
+    }
+
     private void loadMineralData(MineralMessage message) {
         mineralName.setText(message.getMineralName());
         editTextName.setText(message.getName());
         editTextComment.setText(message.getComment());
-        editTextSize.setText(message.getSize());
+        editTextSize.setText(String.valueOf(message.getSize()));
         discoveryPlace.setText(message.getDiscoveryPlace());
-        editTextWeight.setText(message.getWeight());
-        editTextValue.setText(message.getValue());
+        editTextWeight.setText(String.valueOf(message.getWeight()));
+        editTextValue.setText(String.valueOf(message.getValue()));
         editTextClarity.setText(message.getClarity());
         editTextInclusion.setText(message.getInclusion());
         tagsList.addAll(mineralMessage.getTags());

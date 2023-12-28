@@ -1,52 +1,57 @@
 package com.apps.mineralidentyficationapp;
 
-import android.content.Context;
+import static com.apps.mineralidentyficationapp.MainMineralActivity.getDoubleFromString;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.apps.mineralidentyficationapp.adapters.MineralInCollectionAdapter;
+import com.apps.mineralidentyficationapp.adapters.MineralCollectionAdapter;
+import com.apps.mineralidentyficationapp.collection.FoundMineralFilter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.databinding.ActivityCollectionBinding;
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionActivity extends AppCompatActivity {
 
     private ActivityCollectionBinding binding;
-    private Context context;
-    private MineralInCollectionAdapter mineralInCollectionAdapter;
-    private MineralAppApiClient mineralApiClient;
-    private int currentPage = 0;
-    private int pageSize = 10;
-
-    private String username = "";
-
-    List<MineralMessage> mineralMessageList;
+    private Spinner spinnerTag;
+    private MineralCollectionAdapter mineralInCollectionAdapter;
+    private LinearLayout filterContainer;
+    Button saveFilters;
+    Long userID = 1L;
+    FoundMineralFilter filter = new FoundMineralFilter();
+    String selectedTag;
+    String emptyTag;
+    String selectedTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCollectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        context = getBaseContext();
-
-        mineralApiClient = new MineralAppApiClient(context);
-
-//        String[] mineralNames = {"", "amentyst", "kwarc"};
-//        int[] images = {R.drawable.image_0058362, R.drawable.image_0059505, R.drawable.kwarc7};
-
-        mineralInCollectionAdapter = new MineralInCollectionAdapter(CollectionActivity.this);
+        spinnerTag = findViewById(R.id.collectionSpinnerTags);
+        filter.setUserID(1L);
+        mineralInCollectionAdapter = new MineralCollectionAdapter(CollectionActivity.this, filter);
         binding.gridView.setAdapter(mineralInCollectionAdapter);
-
+        filterContainer = findViewById(R.id.filterContainer);
+        saveFilters = findViewById(R.id.collectionFilterSaveButton);
+        emptyTag = getString(R.string.activity_collectionEmptyTag);
+        selectedTag = emptyTag;
+        downloadTagsList();
         binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,26 +78,95 @@ public class CollectionActivity extends AppCompatActivity {
             }
 
         });
+
+        spinnerTag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                selectedTag = (String) parentView.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+        });
+
+        saveFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filter = new FoundMineralFilter();
+                filter.setMineralName(binding.collectionMineralName.getText().toString());
+                filter.setComment(binding.collectionComment.getText().toString());
+                filter.setDiscoveryPlace(binding.collectionDiscoveryPlace.getText().toString());
+                filter.setName(binding.collectionName.getText().toString());
+
+                if (!binding.collectionSizeMax.getText().toString().isEmpty()) {
+                    filter.setMaxSize(getDoubleFromString(binding.collectionSizeMax.getText().toString()));
+                }
+                if (!binding.collectionValueMax.getText().toString().isEmpty()) {
+                    filter.setMaxValue(getDoubleFromString(binding.collectionValueMax.getText().toString()));
+                }
+                if (!binding.collectionWeightMax.getText().toString().isEmpty()) {
+                    filter.setMaxWeight(getDoubleFromString(binding.collectionWeightMax.getText().toString()));
+                }
+                if (!binding.collectionMohsScaleMax.getText().toString().isEmpty()) {
+                    filter.setMaxWeight(getDoubleFromString(binding.collectionMohsScaleMax.getText().toString()));
+                }
+                if (!binding.collectionSizeMin.getText().toString().isEmpty()) {
+                    filter.setMinSize(getDoubleFromString(binding.collectionSizeMin.getText().toString()));
+                }
+                if (!binding.collectionValueMin.getText().toString().isEmpty()) {
+                    filter.setMinValue(getDoubleFromString(binding.collectionValueMin.getText().toString()));
+                }
+                if (!binding.collectionWeightMin.getText().toString().isEmpty()) {
+                    filter.setMinWeight(getDoubleFromString(binding.collectionWeightMin.getText().toString()));
+                }
+                if (!binding.collectionMohsScaleMin.getText().toString().isEmpty()) {
+                    filter.setMinWeight(getDoubleFromString(binding.collectionMohsScaleMin.getText().toString()));
+                }
+                if (!selectedTag.equals(emptyTag)) {
+                    filter.setTagName(selectedTag);
+                }
+
+                filter.setUserID(userID);
+                mineralInCollectionAdapter = new MineralCollectionAdapter(CollectionActivity.this, filter);
+                binding.gridView.setAdapter(mineralInCollectionAdapter);
+
+            }
+        });
     }
 
-    private void loadMoreData() {
-        currentPage++;
-
-        MineralAppApiClient myApiClient = new MineralAppApiClient(context);
-
-        myApiClient.getCollection(new RxCallback<>() {
+    private void downloadTagsList() {
+        MineralAppApiClient myApiClient = new MineralAppApiClient(getBaseContext());
+        myApiClient.getTags(new RxCallback<>() {
             @Override
-            public void onSuccess(List<MineralMessage> mineralsResult) {
-                Log.i("downloadMineralsNames", "success");
-                mineralMessageList = mineralsResult;
-                mineralInCollectionAdapter.notifyDataSetChanged();
+            public void onSuccess(List<String> result) {
+                Log.i("downloadTagsList", "success");
+                result.add(0, emptyTag);
+                selectedTag = emptyTag;
+                ArrayAdapter<String> mineralAdapter = new ArrayAdapter<>(CollectionActivity.this, android.R.layout.simple_spinner_item, result);
+                mineralAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerTag.setAdapter(mineralAdapter);
+
+                if (selectedTags != null && !selectedTags.isEmpty()) {
+                    int spinnerPosition = mineralAdapter.getPosition(selectedTags);
+                    spinnerTag.setSelection(spinnerPosition);
+                }
             }
 
             @Override
             public void onError(String errorMessage) {
-                Log.i("downloadMineralsNames", "error: " + errorMessage);
+                Log.i("downloadTagsList", "error: " + errorMessage);
             }
-        }, currentPage, pageSize, username);
+        }, userID);
+    }
+
+    public void toggleFilters(View view) {
+        //TransitionManager.beginDelayedTransition((ViewGroup) findViewById(R.id.filterContainer));
+        if (filterContainer.getVisibility() == View.VISIBLE) {
+            filterContainer.setVisibility(View.GONE);
+        } else {
+            filterContainer.setVisibility(View.VISIBLE);
+        }
     }
 
 }

@@ -119,8 +119,8 @@ public class MineralAdapter extends RecyclerView.Adapter<MineralAdapter.ViewHold
         }
 
         void bind(String mineralName, Double mineralPercentage, int position) {
-            TextView nameTextView = itemView.findViewById(R.id.mineralNameTextView);
-            TextView percentageTextView = itemView.findViewById(R.id.mineralPercentageTextView);
+            TextView nameTextView = itemView.findViewById(R.id.mineralItemMineralNameTextView);
+            TextView percentageTextView = itemView.findViewById(R.id.mineralItemPercentageTextView);
 
             nameTextView.setText(mineralName);
             if (mineralPercentage > 0.00) {

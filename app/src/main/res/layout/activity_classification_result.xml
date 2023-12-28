@@ -11,7 +11,7 @@
         android:layout_width="390dp"
         android:layout_height="65dp"
         android:layout_margin="16dp"
-        android:hint="Search Minerals"
+        android:hint="@string/activity_classification_result_searchEditText_hint"
         app:layout_constraintBottom_toTopOf="@+id/addToCollectionNewMineral"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.901" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/mineralRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_below="@id/searchEditText"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="add New Mineral"
+        android:text="@string/activity_classification_result_addToCollectionNewMineral"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="add Image"
+        android:text="@string/activity_classification_result_addToCollectionAsImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.863"
@@ -60,13 +60,13 @@
         android:id="@+id/selectedMineral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="no mineral selected"
+        android:text="@string/activity_classification_result_selectedMineral"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044"
-        android:textSize="16sp"/>
+        app:layout_constraintVertical_bias="0.044" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

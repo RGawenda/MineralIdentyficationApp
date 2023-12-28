@@ -5,17 +5,17 @@
     android:layout_height="wrap_content"
     android:padding="20dp"
     android:gravity="center">
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:id="@+id/mineral_image"/>
-    
+        android:id="@+id/mineral_image" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kwarc"
         android:textSize="26sp"
         android:layout_marginTop="6dp"
-        android:id="@+id/mineral_name"/>
+        android:id="@+id/mineral_name" />
 </LinearLayout>

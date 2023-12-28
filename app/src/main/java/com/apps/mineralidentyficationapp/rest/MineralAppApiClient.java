@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.apps.mineralidentyficationapp.collection.FoundMineralFilter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.config.MineralsIdentificationConfig;
@@ -59,8 +60,18 @@ public class MineralAppApiClient {
                 );
     }
 
-    public void getCollection(final RxCallback<List<MineralMessage>> callback, int page, int pageSize, String username) {
-        disposable = myApi.getCollections(page, pageSize, username)
+    public void getTags(final RxCallback<List<String>> callback, Long user) {
+        disposable = myApi.getTags(user)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void getCollection(final RxCallback<List<MineralMessage>> callback, int page, int pageSize, String filter) {
+        disposable = myApi.getCollections(page, pageSize, filter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

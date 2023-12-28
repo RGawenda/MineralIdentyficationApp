@@ -4,23 +4,23 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true">
+
     <TextView
-        android:id="@+id/mineralNameTextView"
+        android:id="@+id/mineralItemMineralNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mineral Name"
+        android:text="@string/item_mineral_mineralItemMineralNameTextView"
         android:textSize="18sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp" />
 
     <TextView
-        android:id="@+id/mineralPercentageTextView"
+        android:id="@+id/mineralItemPercentageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/mineralNameTextView"
-        android:text=""
+        android:text="@string/item_mineral_mineralItemPercentageTextView"
         android:textSize="18sp" />
 </LinearLayout>

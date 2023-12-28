@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.mineralidentyficationapp.adapters.MineralAdapter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +41,7 @@ public class ClassificationResultActivity extends AppCompatActivity {
             names = (List<String>) intent.getSerializableExtra("names");
             mineralBitmapList = (List<Bitmap>) intent.getSerializableExtra("images");
         }
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.mineralRecyclerView);
         EditText searchEditText = findViewById(R.id.searchEditText);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         TextView selectedText = findViewById(R.id.selectedMineral);

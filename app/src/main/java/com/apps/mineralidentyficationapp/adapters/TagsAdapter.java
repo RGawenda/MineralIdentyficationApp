@@ -46,8 +46,8 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
-            deleteButton = itemView.findViewById(R.id.deleteButton);
+            textView = itemView.findViewById(R.id.itemTagsTextView);
+            deleteButton = itemView.findViewById(R.id.itemTagsDeleteButton);
         }
     }
 

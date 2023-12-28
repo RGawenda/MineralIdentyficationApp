@@ -17,19 +17,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/mainCameraButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:text="Take Picture"
+            android:text="@string/activity_main_mainCameraButton"
             android:textAllCaps="false"
             android:textSize="21sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/mainGalleryButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:text="Launch Gallery"
+            android:text="@string/activity_main_mainGalleryButton"
             android:textAllCaps="false"
             android:textSize="21sp"
             android:textStyle="bold" />
@@ -46,27 +46,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/mainLoginButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/activity_main_mainLoginButton"
             android:textAllCaps="false"
             android:textSize="21sp" />
 
         <Button
-            android:id="@+id/registerButton"
+            android:id="@+id/mainRegisterButton"
             android:layout_width="200sp"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="@string/activity_main_mainRegisterButton"
             android:textAllCaps="false"
             android:textSize="21sp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/mainCollectionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="collection"
+        android:text="@string/activity_main_mainCollectionButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

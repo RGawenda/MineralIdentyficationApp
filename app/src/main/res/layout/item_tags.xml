@@ -4,15 +4,15 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/itemTagsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Example Text" />
+        android:text="@string/item_tags_itemTagsTextView" />
 
     <Button
-        android:id="@+id/deleteButton"
+        android:id="@+id/itemTagsDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="delete" />
+        android:text="@string/item_tags_itemTagsDeleteButton" />
 </RelativeLayout>

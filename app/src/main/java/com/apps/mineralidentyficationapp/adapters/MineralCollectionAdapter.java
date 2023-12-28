@@ -12,15 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps.mineralidentyficationapp.R;
+import com.apps.mineralidentyficationapp.collection.FoundMineralFilter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MineralInCollectionAdapter extends BaseAdapter {
+public class MineralCollectionAdapter extends BaseAdapter {
     Context context;
     private List<MineralMessage> itemList;
     LayoutInflater layoutInflater;
@@ -28,11 +30,12 @@ public class MineralInCollectionAdapter extends BaseAdapter {
     private int pageSize = 10;
     private boolean isLoading = false;
     private boolean hasMoreData = true;
-    private String username = "";
+    private FoundMineralFilter foundMineralFilter;
 
-    public MineralInCollectionAdapter(Context context) {
+    public MineralCollectionAdapter(Context context, FoundMineralFilter foundMineralFilter) {
         this.context = context;
         this.itemList = new ArrayList<>();
+        this.foundMineralFilter = foundMineralFilter;
         loadMoreData();
     }
 
@@ -80,7 +83,10 @@ public class MineralInCollectionAdapter extends BaseAdapter {
             isLoading = true;
 
             MineralAppApiClient myApiClient = new MineralAppApiClient(context);
+            Gson gson = new Gson();
+            String filterString = gson.toJson(foundMineralFilter, FoundMineralFilter.class);
 
+            Log.i("toSend", "page: " + currentPage + "size: " + pageSize + "filter: " + filterString);
             myApiClient.getCollection(new RxCallback<>() {
                 @Override
                 public void onSuccess(List<MineralMessage> mineralsResult) {
@@ -100,7 +106,7 @@ public class MineralInCollectionAdapter extends BaseAdapter {
                     Log.i("loadMoreData", "error: " + errorMessage);
                     isLoading = false;
                 }
-            }, currentPage, pageSize, username);
+            }, currentPage, pageSize, filterString);
             currentPage++;
         }
     }

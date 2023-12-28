@@ -19,9 +19,9 @@ public class MineralMessage implements Serializable {
     private String name;
     private String comment;
     private String discoveryPlace;
-    private String value;
-    private String weight;
-    private String size;
+    private Double value;
+    private Double weight;
+    private Double size;
     private String inclusion;
     private String clarity;
     private List<Long> imagesID;

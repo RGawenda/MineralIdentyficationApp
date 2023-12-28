@@ -1,5 +1,6 @@
 package com.apps.mineralidentyficationapp.rest;
 
+import com.apps.mineralidentyficationapp.collection.FoundMineralFilter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationResultMessage;
@@ -26,24 +27,32 @@ public interface MineralAppApi {
     @GET("classification-rest/get-minerals-names")
     Single<List<String>> getMineralsNames();
 
+
     @GET("classification-rest/get-mineral")
     Single<Minerals> getMineral(@Query("mineralName") String mineralName);
 
     @GET(value = "collection-rest/all-collection")
-    Single<List<MineralMessage>> getCollections(@Query("page") int page, @Query("pageSize") int pageSize, @Query("username") String username);
+    Single<List<MineralMessage>> getCollections(@Query("page") int page,
+                                                @Query("pageSize") int pageSize,
+                                                @Query("filter") String filter);
+
+    @GET("collection-rest/get-tags")
+    Single<List<String>> getTags(@Query("user") Long parameter);
 
     @GET(value = "collection-rest/collected-mineral")
     Single<ClassificationResultMessage> getMineralCollections(@Query("param") String parameter);
 
     //CRUD Minerals in collectio
     @POST(value = "collection-rest/add-mineral-to-collection")
-    Single<MineralMessage> addMineralToCollection(@Query("id") Long id, @Body MineralMessage mineral);
+    Single<MineralMessage> addMineralToCollection(@Query("id") Long id,
+                                                  @Body MineralMessage mineral);
 
     @GET(value = "collection-rest/show-mineral")
     Single<Minerals> getMineralFromCollection(@Query("mineralId") String mineralId);
 
     @PUT(value = "collection-rest/edit-mineral-in-collection")
-    Single<MineralMessage> editMineralInCollection(@Query("id") Long id, @Body MineralMessage editedMineralMessage);
+    Single<MineralMessage> editMineralInCollection(@Query("id") Long id,
+                                                   @Body MineralMessage editedMineralMessage);
 
     @DELETE(value = "collection-rest/delete-mineral-from-collection")
     Single<Object> deleteMineralFromCollection(@Query("id") Long id);

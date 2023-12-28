@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        camera = findViewById(R.id.button);
-        gallery = findViewById(R.id.button2);
-        collection = findViewById(R.id.button3);
-        loginButton = findViewById(R.id.loginButton);
-        registerButton = findViewById(R.id.registerButton);
+        camera = findViewById(R.id.mainCameraButton);
+        gallery = findViewById(R.id.mainGalleryButton);
+        collection = findViewById(R.id.mainCollectionButton);
+        loginButton = findViewById(R.id.mainLoginButton);
+        registerButton = findViewById(R.id.mainRegisterButton);
         sessionManager = new SessionManager(getApplicationContext());
 
         if (!sessionManager.isLoggedIn()) {
