@@ -32,19 +32,40 @@ public class CollectionActivity extends AppCompatActivity {
     private MineralCollectionAdapter mineralInCollectionAdapter;
     private LinearLayout filterContainer;
     Button saveFilters;
-    Long userID = 1L;
     FoundMineralFilter filter = new FoundMineralFilter();
     String selectedTag;
     String emptyTag;
     String selectedTags;
+
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCollectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent intent = getIntent();
+
+        SessionManager sessionManager = new SessionManager(getBaseContext());
+
+        if (intent != null) {
+            String message = intent.getStringExtra("controller");
+            if("addImage".equals(message)){
+                username = sessionManager.getUsername();
+
+            } else if ("user-collection".equals(message)) {
+                username = intent.getStringExtra("username");
+            }else {
+                username = sessionManager.getUsername();
+            }
+        }
+
+
+
+
         spinnerTag = findViewById(R.id.collectionSpinnerTags);
-        filter.setUserID(1L);
+        filter.setUser(username);
         mineralInCollectionAdapter = new MineralCollectionAdapter(CollectionActivity.this, filter);
         binding.gridView.setAdapter(mineralInCollectionAdapter);
         filterContainer = findViewById(R.id.filterContainer);
@@ -65,7 +86,6 @@ public class CollectionActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         binding.gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -127,7 +147,7 @@ public class CollectionActivity extends AppCompatActivity {
                     filter.setTagName(selectedTag);
                 }
 
-                filter.setUserID(userID);
+                filter.setUser(username);
                 mineralInCollectionAdapter = new MineralCollectionAdapter(CollectionActivity.this, filter);
                 binding.gridView.setAdapter(mineralInCollectionAdapter);
 
@@ -157,7 +177,7 @@ public class CollectionActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("downloadTagsList", "error: " + errorMessage);
             }
-        }, userID);
+        }, username);
     }
 
     public void toggleFilters(View view) {
@@ -168,5 +188,7 @@ public class CollectionActivity extends AppCompatActivity {
             filterContainer.setVisibility(View.VISIBLE);
         }
     }
+
+
 
 }

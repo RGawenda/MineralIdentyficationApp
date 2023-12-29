@@ -36,4 +36,12 @@
         android:layout_below="@+id/buttonLogin"
         android:layout_marginTop="16dp"
         android:text="@string/activity_login_textViewRegister" />
+
+    <Button
+        android:id="@+id/buttonToRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextPassword"
+        android:layout_marginTop="116dp"
+        android:text="@string/activity_login_switchToRegister" />
 </RelativeLayout>

@@ -95,8 +95,9 @@ public class ClassificationResultActivity extends AppCompatActivity {
                 mineralMessage.setMineralName(selectedMineralName);
                 mineralMessage.setImages(convertListBitmapToBase64(mineralBitmapList));
                 Context context = view.getContext();
-                Intent intent = new Intent(context, MainMineralActivity.class);
+                Intent intent = new Intent(context, CollectionActivity.class);
                 intent.putExtra("mineralMessage", mineralMessage);
+                intent.putExtra("controller", "addImage");
                 context.startActivity(intent);
             }
         });

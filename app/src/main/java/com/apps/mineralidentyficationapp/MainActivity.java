@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), CollectionActivity.class);
+                myIntent.putExtra("controller", "self-collection");
                 startActivity(myIntent);
             }
         });

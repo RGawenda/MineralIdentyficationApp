@@ -35,10 +35,12 @@
     <string name="activity_collectionEmptyTag">no selected</string>
 
     <!-- activity_login -->
+    <string name="activity_login_editTextLogin">Login</string>
     <string name="activity_login_editTextUsername">Username</string>
     <string name="activity_login_editTextPassword">Password</string>
     <string name="activity_login_buttonLogin">Login</string>
     <string name="activity_login_textViewRegister">Don\'t have an account? Register here.</string>
+    <string name="activity_login_switchToRegister">Register</string>
 
     <!-- activity_main -->
     <string name="activity_main_mainCameraButton">Take Picture</string>

@@ -12,7 +12,7 @@ public class FoundMineralFilter {
     Double minMohsScale;
     Double maxMohsScale;
     String tagName;
-    Long userID;
+    String user;
     String name;
     String comment;
     String discoveryPlace;

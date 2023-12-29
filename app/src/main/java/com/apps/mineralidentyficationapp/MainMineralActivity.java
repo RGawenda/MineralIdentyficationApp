@@ -63,9 +63,6 @@ public class MainMineralActivity extends AppCompatActivity {
     private TagsAdapter adapter;
     Context context;
 
-    Long id = 1L;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -344,7 +341,7 @@ public class MainMineralActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("addMineral", "error: " + errorMessage);
             }
-        }, id, mineralMessage);
+        }, mineralMessage);
 
     }
 
@@ -411,7 +408,7 @@ public class MainMineralActivity extends AppCompatActivity {
             public void onError(String errorMessage) {
                 Log.i("updateMineral", "error: " + errorMessage);
             }
-        }, id, toSend);
+        }, toSend);
     }
 
     private void deleteMineral() {

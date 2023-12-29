@@ -6,11 +6,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.apps.mineralidentyficationapp.SessionManager;
 import com.apps.mineralidentyficationapp.collection.FoundMineralFilter;
 import com.apps.mineralidentyficationapp.collection.MineralMessage;
 import com.apps.mineralidentyficationapp.collection.Minerals;
 import com.apps.mineralidentyficationapp.config.MineralsIdentificationConfig;
+import com.apps.mineralidentyficationapp.rest.messages.AuthRequest;
+import com.apps.mineralidentyficationapp.rest.messages.AuthenticationResponse;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationMessage;
+import com.apps.mineralidentyficationapp.rest.messages.RegisterRequest;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -24,15 +28,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MineralAppApiClient {
-    private Retrofit retrofit;
-    private MineralAppApi myApi;
-
+    private final MineralAppApi myApi;
     private Disposable disposable;
-
+    private final String authToken;
 
     public MineralAppApiClient(Context context) {
         String url = MineralsIdentificationConfig.getConfigProperties(context, "BASE_URL");
-        retrofit = new Retrofit.Builder()
+        SessionManager sessionManager = new SessionManager(context);
+        authToken = "Bearer " + sessionManager.getToken();
+
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -41,7 +46,7 @@ public class MineralAppApiClient {
     }
 
     public void classification(final RxCallback<Map<String, Double>> callback, Bitmap image) {
-        disposable = myApi.getClassification(convertBitmapToBase64(image))
+        disposable = myApi.getClassification(authToken,convertBitmapToBase64(image))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -51,7 +56,7 @@ public class MineralAppApiClient {
     }
 
     public void getMineralsNames(final RxCallback<List<String>> callback) {
-        disposable = myApi.getMineralsNames()
+        disposable = myApi.getMineralsNames(authToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -60,8 +65,8 @@ public class MineralAppApiClient {
                 );
     }
 
-    public void getTags(final RxCallback<List<String>> callback, Long user) {
-        disposable = myApi.getTags(user)
+    public void getTags(final RxCallback<List<String>> callback, String user) {
+        disposable = myApi.getTags(authToken,user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -71,7 +76,7 @@ public class MineralAppApiClient {
     }
 
     public void getCollection(final RxCallback<List<MineralMessage>> callback, int page, int pageSize, String filter) {
-        disposable = myApi.getCollections(page, pageSize, filter)
+        disposable = myApi.getCollections(authToken,page, pageSize, filter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -81,7 +86,7 @@ public class MineralAppApiClient {
     }
 
     public void getMineral(final RxCallback<Minerals> callback, String mineralName) {
-        disposable = myApi.getMineral(mineralName)
+        disposable = myApi.getMineral(authToken,mineralName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -96,8 +101,8 @@ public class MineralAppApiClient {
         }
     }
 
-    public void addNewMineral(final RxCallback<MineralMessage> callback, Long id, MineralMessage mineralName) {
-        disposable = myApi.addMineralToCollection(id, mineralName)
+    public void addNewMineral(final RxCallback<MineralMessage> callback, MineralMessage mineralName) {
+        disposable = myApi.addMineralToCollection(authToken, mineralName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -107,7 +112,7 @@ public class MineralAppApiClient {
     }
 
     public void deleteMineral(final RxCallback<Object> callback, Long id) {
-        disposable = myApi.deleteMineralFromCollection(id)
+        disposable = myApi.deleteMineralFromCollection(authToken,id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -116,8 +121,28 @@ public class MineralAppApiClient {
                 );
     }
 
-    public void editMineral(final RxCallback<MineralMessage> callback, Long id, MineralMessage mineralMessage) {
-        disposable = myApi.editMineralInCollection(id, mineralMessage)
+    public void editMineral(final RxCallback<MineralMessage> callback, MineralMessage mineralMessage) {
+        disposable = myApi.editMineralInCollection(authToken, mineralMessage)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void login(final RxCallback<AuthenticationResponse> callback, AuthRequest authRequest) {
+        disposable = myApi.login(authRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void register(final RxCallback<AuthenticationResponse> callback, RegisterRequest registerRequest) {
+        disposable = myApi.register(registerRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
