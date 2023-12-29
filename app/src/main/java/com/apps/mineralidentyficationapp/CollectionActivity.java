@@ -1,8 +1,10 @@
 package com.apps.mineralidentyficationapp;
 
 import static com.apps.mineralidentyficationapp.MainMineralActivity.getDoubleFromString;
+import static com.apps.mineralidentyficationapp.utils.FileUtils.convertBase64ListToBitmap;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 public class CollectionActivity extends AppCompatActivity {
@@ -36,13 +39,15 @@ public class CollectionActivity extends AppCompatActivity {
     String selectedTag;
     String emptyTag;
     String selectedTags;
-
     String username;
+    String newImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCollectionBinding.inflate(getLayoutInflater());
+        Log.i("collection", "start collection");
+
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
@@ -52,17 +57,27 @@ public class CollectionActivity extends AppCompatActivity {
         if (intent != null) {
             String message = intent.getStringExtra("controller");
             if("addImage".equals(message)){
+                Log.i("controller", "add image");
                 username = sessionManager.getUsername();
+                MineralMessage mineralSelected = (MineralMessage) intent.getSerializableExtra("mineralMessage");
+                if(mineralSelected != null){
+                    Log.i("collection", "ste image");
+
+                    newImage = mineralSelected.getImages().get(0);
+                    filter.setMineralName(mineralSelected.getMineralName());
+                    binding.collectionMineralName.setText(mineralSelected.getMineralName());
+                }
 
             } else if ("user-collection".equals(message)) {
+                Log.i("controller", "user collection");
+
                 username = intent.getStringExtra("username");
             }else {
+                Log.i("controller", "self collection");
+
                 username = sessionManager.getUsername();
             }
         }
-
-
-
 
         spinnerTag = findViewById(R.id.collectionSpinnerTags);
         filter.setUser(username);
@@ -80,6 +95,11 @@ public class CollectionActivity extends AppCompatActivity {
                 if (mineralMessage != null) {
                     Log.i("test click", "click on item");
                     Intent myIntent = new Intent(view.getContext(), MainMineralActivity.class);
+                    if(newImage != null && !newImage.isEmpty()){
+                        Log.i("collection", "added image");
+
+                        mineralMessage.getImages().add(newImage);
+                    }
                     myIntent.putExtra("mineralMessage", mineralMessage);
                     startActivity(myIntent);
                     finish();
