@@ -48,6 +48,9 @@
     <string name="activity_main_mainLoginButton">Login</string>
     <string name="activity_main_mainRegisterButton">Register</string>
     <string name="activity_main_mainCollectionButton">collection</string>
+    <string name="activity_main_mainUsersList">users list</string>
+    <string name="activity_main_mainUsersShareButton">share</string>
+
 
     <!-- activity_main_mineral -->
     <string name="activity_mineral_mineralImageViewPager">images</string>
@@ -83,10 +86,12 @@
     <!-- item_tags -->
     <string name="item_tags_itemTagsTextView">Example Text</string>
     <string name="item_tags_itemTagsDeleteButton">Delete</string>
+    <!-- activity-sharing -->
 
-
-    <!-- mineral_item -->
-
-    <!-- pager_item -->
+    <string name="activity_mineral_sharingUsername">add user share\n</string>
+    <string name="activity_mineral_sharingAddButton">share</string>
+    <string name="sharingUserTypeButton_public">public</string>
+    <string name="sharingUserTypeButton_private">private</string>
+    <string name="activity_mineral_sharingChangeButton">change account type</string>
 
 </resources>

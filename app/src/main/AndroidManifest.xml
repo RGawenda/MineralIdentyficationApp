@@ -22,6 +22,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".UneditableMineralActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewMineralActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SharingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsersListActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

@@ -15,6 +15,7 @@ import com.apps.mineralidentyficationapp.rest.messages.AuthRequest;
 import com.apps.mineralidentyficationapp.rest.messages.AuthenticationResponse;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationMessage;
 import com.apps.mineralidentyficationapp.rest.messages.RegisterRequest;
+import com.apps.mineralidentyficationapp.utils.AccountType;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -143,6 +144,66 @@ public class MineralAppApiClient {
 
     public void register(final RxCallback<AuthenticationResponse> callback, RegisterRequest registerRequest) {
         disposable = myApi.register(registerRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void unsharedTheCollection(RxCallback<String> callback, String username) {
+        disposable = myApi.unsharedTheCollection(authToken, username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void shareCollection(RxCallback<String> callback, String username) {
+        disposable = myApi.shareCollection(authToken, username)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void getUsers(RxCallback<List<String>> callback) {
+        disposable = myApi.getUsers(authToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void getUsersShare(RxCallback<List<String>> callback) {
+        disposable = myApi.getUsersShare(authToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void changeTypeAccount(RxCallback<String> callback, AccountType accountType) {
+        disposable = myApi.changeAccountType(authToken, accountType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        callback::onSuccess,
+                        error -> callback.onError(error.getMessage())
+                );
+    }
+
+    public void getAccountType(RxCallback<AccountType> callback) {
+        disposable = myApi.getAccountType(authToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

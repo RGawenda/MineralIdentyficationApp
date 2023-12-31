@@ -42,6 +42,8 @@ public class CollectionActivity extends AppCompatActivity {
     String username;
     String newImage;
 
+    Boolean editable = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,7 @@ public class CollectionActivity extends AppCompatActivity {
         if (intent != null) {
             String message = intent.getStringExtra("controller");
             if("addImage".equals(message)){
+                editable = true;
                 Log.i("controller", "add image");
                 username = sessionManager.getUsername();
                 MineralMessage mineralSelected = (MineralMessage) intent.getSerializableExtra("mineralMessage");
@@ -70,11 +73,11 @@ public class CollectionActivity extends AppCompatActivity {
 
             } else if ("user-collection".equals(message)) {
                 Log.i("controller", "user collection");
-
+                editable = false;
                 username = intent.getStringExtra("username");
             }else {
                 Log.i("controller", "self collection");
-
+                editable = true;
                 username = sessionManager.getUsername();
             }
         }
@@ -93,16 +96,24 @@ public class CollectionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MineralMessage mineralMessage = (MineralMessage) mineralInCollectionAdapter.getItem(position);
                 if (mineralMessage != null) {
-                    Log.i("test click", "click on item");
-                    Intent myIntent = new Intent(view.getContext(), MainMineralActivity.class);
-                    if(newImage != null && !newImage.isEmpty()){
-                        Log.i("collection", "added image");
+                    if(editable){
+                        Log.i("test click", "click on item");
+                        Intent myIntent = new Intent(view.getContext(), MainMineralActivity.class);
+                        if(newImage != null && !newImage.isEmpty()){
+                            Log.i("collection", "added image");
 
-                        mineralMessage.getImages().add(newImage);
+                            mineralMessage.getImages().add(newImage);
+                        }
+                        myIntent.putExtra("mineralMessage", mineralMessage);
+                        startActivity(myIntent);
+                        finish();
+                    }else{
+                        Intent myIntent = new Intent(view.getContext(), UneditableMineralActivity.class);
+                        myIntent.putExtra("mineralMessage", mineralMessage);
+                        startActivity(myIntent);
+                        finish();
                     }
-                    myIntent.putExtra("mineralMessage", mineralMessage);
-                    startActivity(myIntent);
-                    finish();
+
                 }
             }
         });

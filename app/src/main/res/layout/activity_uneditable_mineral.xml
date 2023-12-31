@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMineralActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/unEditMineralImageViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:contentDescription="@string/activity_mineral_mineralImageViewPager" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/unEditMineralImageViewPager"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextName"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_mineral_mineralEditTextName" />
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextValue"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/activity_mineral_mineralEditTextValue" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextWeight"
+                    android:layout_width="200dp"
+                    android:inputType="numberDecimal"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_mineral_mineralEditTextWeight" />
+
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextSize"
+                    android:layout_width="200dp"
+                    android:inputType="numberDecimal"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_mineral_mineralEditTextSize" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextInclusion"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_mineral_mineralEditTextInclusion" />
+
+                <TextView
+                    android:id="@+id/unEditMineralEditTextClarity"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/activity_mineral_mineralEditTextClarity" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/unEditMineralEditTextComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_mineral_mineralEditTextComment"
+                android:maxLines="3" />
+
+            <TextView
+                android:id="@+id/unEditMineralEditTextDiscoveryPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_mineral_mineralEditTextDiscoveryPlace"
+                android:maxLines="3" />
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/unEditMineralRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="16dp" />
+
+            <TextView
+                android:id="@+id/unEditMineralItemMineralNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mineral_mineralMineralNameTextView"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/unEditMineralMohsScaleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_mineral_mineralMohsScaleTextView"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/unEditMineralChemicalFormulaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_mineral_mineralChemicalFormulaTextView"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/unEditMineralOccurrencePlaceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_mineral_mineralOccurrencePlaceTextView"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

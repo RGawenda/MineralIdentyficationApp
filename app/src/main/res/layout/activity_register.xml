@@ -26,7 +26,25 @@
         android:id="@+id/registerRegisterButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/registerEditTextNewPassword"
+        android:layout_below="@+id/registerUserTypeButton"
         android:layout_marginTop="16dp"
         android:text="@string/activity_register_registerRegisterButton" />
+    <RadioGroup
+        android:id="@+id/registerUserTypeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registerEditTextNewPassword">
+
+        <RadioButton
+            android:id="@+id/radioButtonOption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sharingUserTypeButton_public" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sharingUserTypeButton_private" />
+    </RadioGroup>
 </RelativeLayout>

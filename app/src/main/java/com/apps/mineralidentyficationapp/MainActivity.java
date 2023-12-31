@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private Button camera, gallery, collection, loginButton, registerButton;
+    private Button camera, gallery, collection, loginButton, registerButton, shareButton, usersListButton;
     private Context context;
     private ProgressDialog progressDialog;
     private SessionManager sessionManager;
@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.mainLoginButton);
         registerButton = findViewById(R.id.mainRegisterButton);
         sessionManager = new SessionManager(getApplicationContext());
-
+        shareButton = findViewById(R.id.mainUsersShareButton);
+        usersListButton = findViewById(R.id.mainUsersListButton);
         if (!sessionManager.isLoggedIn()) {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
@@ -91,6 +92,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(view.getContext(), RegisterActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), SharingActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        usersListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), UsersListActivity.class);
                 startActivity(myIntent);
             }
         });

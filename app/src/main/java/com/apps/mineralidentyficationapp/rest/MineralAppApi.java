@@ -6,10 +6,12 @@ import com.apps.mineralidentyficationapp.rest.messages.AuthRequest;
 import com.apps.mineralidentyficationapp.rest.messages.AuthenticationResponse;
 import com.apps.mineralidentyficationapp.rest.messages.ClassificationResultMessage;
 import com.apps.mineralidentyficationapp.rest.messages.RegisterRequest;
+import com.apps.mineralidentyficationapp.utils.AccountType;
 
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -74,4 +76,17 @@ public interface MineralAppApi {
     @GET(value = "show-user-collection")
     Single<ClassificationResultMessage> showCollection(@Header("Authorization") String token,
                                                        @Query("userId") String userId);
+    @PUT(value = "collection-rest/change-account-type")
+    Single<String> changeAccountType(@Header("Authorization") String token, @Query("accountType") AccountType accountType);
+    @GET(value = "collection-rest/get-account-type")
+    Single<AccountType> getAccountType(@Header("Authorization") String token);
+
+    @GET(value = "collection-rest/get-users")
+    Single<List<String>> getUsers(@Header("Authorization") String token);
+    @GET(value = "collection-rest/get-share-users")
+    Single<List<String>> getUsersShare(@Header("Authorization") String token);
+    @POST(value = "collection-rest/share-collection")
+    Single<String> shareCollection(@Header("Authorization") String token, @Query("username") String username);
+    @DELETE(value = "collection-rest/unshared-collection")
+    Single<String> unsharedTheCollection(@Header("Authorization") String token, @Query("username") String username);
 }

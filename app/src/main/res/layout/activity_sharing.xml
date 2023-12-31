@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SharingActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/topLayout">
+
+            <EditText
+                android:id="@+id/sharingUsername"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_mineral_sharingUsername" />
+
+            <Button
+                android:id="@+id/sharingAddButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/activity_mineral_sharingAddButton" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/recyclerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/topLayout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sharingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"
+                android:padding="16dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/recyclerLayout">
+
+        <RadioGroup
+            android:id="@+id/sharingUserTypeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/sharingRadioButtonOption1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sharingUserTypeButton_public" />
+
+            <RadioButton
+                android:id="@+id/sharingRadioButtonOption2"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="@string/sharingUserTypeButton_private" />
+            <Button
+                android:id="@+id/sharingChangeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/activity_mineral_sharingChangeButton" />
+        </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

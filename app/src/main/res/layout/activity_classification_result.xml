@@ -6,18 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".ClassificationResultActivity">
 
+    <TextView
+        android:id="@+id/selectedMineral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_classification_result_selectedMineral"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="390dp"
         android:layout_height="65dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="92dp"
         android:hint="@string/activity_classification_result_searchEditText_hint"
-        app:layout_constraintBottom_toTopOf="@+id/addToCollectionNewMineral"
+        app:layout_constraintBottom_toTopOf="@+id/mineralRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mineralRecyclerView"
@@ -26,9 +39,10 @@
         android:layout_below="@id/searchEditText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
+        app:layout_constraintVertical_bias="0.552" />
 
     <Button
         android:id="@+id/addToCollectionNewMineral"
@@ -56,17 +70,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.932" />
 
-    <TextView
-        android:id="@+id/selectedMineral"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_classification_result_selectedMineral"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.044" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
