@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- main activity -->
+    <dimen name="main_button_margin">16dp</dimen>
+    <dimen name="main_button_margin_center">8dp</dimen>
+
+
+</resources>

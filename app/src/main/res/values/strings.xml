@@ -44,13 +44,13 @@
 
     <!-- activity_main -->
     <string name="activity_main_mainCameraButton">Take Picture</string>
-    <string name="activity_main_mainGalleryButton">Launch Gallery</string>
+    <string name="activity_main_mainGalleryButton">Gallery</string>
     <string name="activity_main_mainLoginButton">Login</string>
     <string name="activity_main_mainRegisterButton">Register</string>
-    <string name="activity_main_mainCollectionButton">collection</string>
-    <string name="activity_main_mainUsersList">users list</string>
-    <string name="activity_main_mainUsersShareButton">share</string>
-
+    <string name="activity_main_mainCollectionButton">Collection</string>
+    <string name="activity_main_mainUsersList">Users list</string>
+    <string name="activity_main_mainUsersShareButton">Share</string>
+    <string name="activity_main_mainCollectionTextView">Menu\n</string>
 
     <!-- activity_main_mineral -->
     <string name="activity_mineral_mineralImageViewPager">images</string>
@@ -93,5 +93,6 @@
     <string name="sharingUserTypeButton_public">public</string>
     <string name="sharingUserTypeButton_private">private</string>
     <string name="activity_mineral_sharingChangeButton">change account type</string>
+
 
 </resources>

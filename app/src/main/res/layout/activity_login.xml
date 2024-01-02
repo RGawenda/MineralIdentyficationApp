@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
     tools:context=".LoginActivity">
 
     <EditText
@@ -27,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextPassword"
         android:layout_marginTop="16dp"
-        android:text="@string/activity_login_buttonLogin" />
+        android:text="@string/activity_login_buttonLogin"
+        android:backgroundTint="@color/mainButtonColor"/>
 
     <TextView
         android:id="@+id/textViewRegister"
@@ -42,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextPassword"
+        android:backgroundTint="@color/mainButtonColor"
         android:layout_marginTop="116dp"
         android:text="@string/activity_login_switchToRegister" />
 </RelativeLayout>

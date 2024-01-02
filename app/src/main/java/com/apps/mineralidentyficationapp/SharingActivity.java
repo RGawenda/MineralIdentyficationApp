@@ -1,9 +1,5 @@
 package com.apps.mineralidentyficationapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,9 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
-import com.apps.mineralidentyficationapp.adapters.TagsAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.apps.mineralidentyficationapp.adapters.UsersAdapter;
 import com.apps.mineralidentyficationapp.rest.MineralAppApiClient;
 import com.apps.mineralidentyficationapp.rest.RxCallback;

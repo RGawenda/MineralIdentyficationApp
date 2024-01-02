@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
     tools:context=".MainMineralActivity">
 
     <RelativeLayout
@@ -39,8 +40,8 @@
                     android:id="@+id/unEditMineralEditTextValue"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:hint="@string/activity_mineral_mineralEditTextValue" />
+                    android:hint="@string/activity_mineral_mineralEditTextValue"
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <LinearLayout
@@ -50,17 +51,17 @@
                 <TextView
                     android:id="@+id/unEditMineralEditTextWeight"
                     android:layout_width="200dp"
-                    android:inputType="numberDecimal"
                     android:layout_height="wrap_content"
-                    android:hint="@string/activity_mineral_mineralEditTextWeight" />
+                    android:hint="@string/activity_mineral_mineralEditTextWeight"
+                    android:inputType="numberDecimal" />
 
 
                 <TextView
                     android:id="@+id/unEditMineralEditTextSize"
                     android:layout_width="200dp"
-                    android:inputType="numberDecimal"
                     android:layout_height="wrap_content"
-                    android:hint="@string/activity_mineral_mineralEditTextSize" />
+                    android:hint="@string/activity_mineral_mineralEditTextSize"
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,7 +94,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/activity_mineral_mineralEditTextDiscoveryPlace"
                 android:maxLines="3" />
-
 
 
             <androidx.recyclerview.widget.RecyclerView

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/mainBackgroundColorElement"
     android:clickable="true"
     android:focusable="true">
 
@@ -9,11 +10,11 @@
         android:id="@+id/mineralItemMineralNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/item_mineral_mineralItemMineralNameTextView"
-        android:textSize="18sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:text="@string/item_mineral_mineralItemMineralNameTextView"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/mineralItemPercentageTextView"

@@ -48,7 +48,7 @@ public interface MineralAppApi {
     Single<List<String>> getTags(@Header("Authorization") String token,
                                  @Query("user") String parameter);
 
-    //CRUD Minerals in collectio
+    //CRUD Minerals
     @POST(value = "collection-rest/add-mineral-to-collection")
     Single<MineralMessage> addMineralToCollection(@Header("Authorization") String token,
                                                   @Body MineralMessage mineral);
@@ -68,14 +68,7 @@ public interface MineralAppApi {
     @POST(value = "api/auth/register")
     Single<AuthenticationResponse> register(@Body RegisterRequest registerRequest);
 
-    //profile
-    @GET(value = "show-profile")
-    Single<ClassificationResultMessage> showProfile(@Header("Authorization") String token,
-                                                    @Query("userId") String userId);
-
-    @GET(value = "show-user-collection")
-    Single<ClassificationResultMessage> showCollection(@Header("Authorization") String token,
-                                                       @Query("userId") String userId);
+    //collection
     @PUT(value = "collection-rest/change-account-type")
     Single<String> changeAccountType(@Header("Authorization") String token, @Query("accountType") AccountType accountType);
     @GET(value = "collection-rest/get-account-type")

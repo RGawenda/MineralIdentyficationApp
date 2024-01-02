@@ -1,25 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:id="@+id/mainTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:background="@color/mainButtonColor"
+            android:id="@+id/mainCollectionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/activity_main_mainCollectionTextView"
+            android:textSize="21sp"
+            android:layout_marginStart="@dimen/main_button_margin"
+            android:layout_marginEnd="@dimen/main_button_margin_center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainLoginRegisterLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_below="@+id/mainTextLayout"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/mainLoginButton"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin"
+            android:layout_marginEnd="@dimen/main_button_margin_center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
+            android:text="@string/activity_main_mainLoginButton"
+            android:textAllCaps="false"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/mainRegisterButton"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin_center"
+            android:layout_marginEnd="@dimen/main_button_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
+            android:text="@string/activity_main_mainRegisterButton"
+            android:textAllCaps="false"
+            android:textSize="21sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/mainPhotoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainLoginRegisterLayout"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/mainCameraButton"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin"
+            android:layout_marginEnd="@dimen/main_button_margin_center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
             android:text="@string/activity_main_mainCameraButton"
             android:textAllCaps="false"
             android:textSize="21sp"
@@ -27,8 +79,12 @@
 
         <Button
             android:id="@+id/mainGalleryButton"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin_center"
+            android:layout_marginEnd="@dimen/main_button_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
             android:text="@string/activity_main_mainGalleryButton"
             android:textAllCaps="false"
             android:textSize="21sp"
@@ -36,57 +92,51 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:id="@+id/mainCollectionLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_below="@+id/mainPhotoLayout">
 
         <Button
-            android:id="@+id/mainLoginButton"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_main_mainLoginButton"
-            android:textAllCaps="false"
-            android:textSize="21sp" />
-
-        <Button
-            android:id="@+id/mainRegisterButton"
-            android:layout_width="200sp"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_main_mainRegisterButton"
+            android:id="@+id/mainCollectionButton"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="@dimen/main_button_margin"
+            android:layout_marginRight="@dimen/main_button_margin"
+            android:backgroundTint="@color/mainButtonColor"
+            android:text="@string/activity_main_mainCollectionButton"
             android:textAllCaps="false"
             android:textSize="21sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/mainCollectionButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/mainUsersLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_main_mainCollectionButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771" />
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/mainUsersListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_mainUsersList"
-        />
-    <Button
-        android:id="@+id/mainUsersShareButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_main_mainUsersShareButton"
-        />
-</LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/mainCollectionLayout">
+
+        <Button
+            android:id="@+id/mainUsersListButton"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin"
+            android:layout_marginEnd="@dimen/main_button_margin_center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
+            android:text="@string/activity_main_mainUsersList"
+            android:textAllCaps="false"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/mainUsersShareButton"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="@dimen/main_button_margin_center"
+            android:layout_marginEnd="@dimen/main_button_margin"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mainButtonColor"
+            android:text="@string/activity_main_mainUsersShareButton"
+            android:textAllCaps="false"
+            android:textSize="21sp" />
+    </LinearLayout>
+</RelativeLayout>

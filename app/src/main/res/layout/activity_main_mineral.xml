@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMineralActivity">
+    tools:context=".MainMineralActivity"
+    android:background="@color/mainBackgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,19 +34,22 @@
                     android:id="@+id/mineralAddImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_mineral_mineralAddImageButton" />
+                    android:text="@string/activity_mineral_mineralAddImageButton"
+                    android:backgroundTint="@color/mainButtonColor"/>
 
                 <Button
                     android:id="@+id/mineralAddImageGalleryButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_mineral_mineralAddImageGalleryButton" />
+                    android:text="@string/activity_mineral_mineralAddImageGalleryButton"
+                    android:backgroundTint="@color/mainButtonColor"/>
 
                 <Button
                     android:id="@+id/mineralDeleteImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/activity_mineral_mineralDeleteImageButton" />
+                    android:text="@string/activity_mineral_mineralDeleteImageButton"
+                    android:backgroundTint="@color/mainButtonColor"/>
             </LinearLayout>
 
             <LinearLayout
@@ -132,7 +136,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/activity_mineral_mineralAddTagButton" />
+                    android:text="@string/activity_mineral_mineralAddTagButton"
+                    android:backgroundTint="@color/mainButtonColor"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

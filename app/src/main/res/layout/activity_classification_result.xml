@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClassificationResultActivity">
+    tools:context=".ClassificationResultActivity"
+    android:background="@color/mainBackgroundColor">
 
     <TextView
         android:id="@+id/selectedMineral"
@@ -55,7 +56,8 @@
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
+        app:layout_constraintVertical_bias="0.932"
+        android:backgroundTint="@color/mainButtonColor"/>
 
     <Button
         android:id="@+id/addToCollectionAsImage"
@@ -68,8 +70,7 @@
         app:layout_constraintHorizontal_bias="0.863"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.932" />
-
-
+        app:layout_constraintVertical_bias="0.932"
+        android:backgroundTint="@color/mainButtonColor"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

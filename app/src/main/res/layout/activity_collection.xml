@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="toggleFilters"
-            android:text="@string/activity_collection_buttonToggleFilters" />
+            android:text="@string/activity_collection_buttonToggleFilters"
+            android:backgroundTint="@color/mainButtonColor"/>
 
         <LinearLayout
             android:id="@+id/filterContainer"

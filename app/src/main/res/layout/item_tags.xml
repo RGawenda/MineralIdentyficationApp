@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/mainBackgroundColorElement"
     android:padding="16dp">
 
     <TextView
@@ -14,5 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:text="@string/item_tags_itemTagsDeleteButton" />
+        android:text="@string/item_tags_itemTagsDeleteButton"
+        android:backgroundTint="@color/mainButtonColor"/>
 </RelativeLayout>

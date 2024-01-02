@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <!-- main activity -->
+    <color name="mainButtonColor">#3C3737</color>
+    <color name="mainBackgroundColor">#323C51</color>
+
+    <color name="mainBackgroundColorElement">#5B6068</color>
 </resources>

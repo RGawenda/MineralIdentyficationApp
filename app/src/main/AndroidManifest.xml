@@ -25,9 +25,6 @@
             android:name=".UneditableMineralActivity"
             android:exported="false" />
         <activity
-            android:name=".ViewMineralActivity"
-            android:exported="false" />
-        <activity
             android:name=".SharingActivity"
             android:exported="false" />
         <activity
@@ -44,12 +41,6 @@
             android:exported="false" />
         <activity
             android:name=".ClassificationResultActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddEditActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MineralActivity"
             android:exported="false" />
         <activity
             android:name=".CollectionActivity"
