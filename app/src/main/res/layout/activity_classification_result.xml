@@ -20,30 +20,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.044" />
 
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="390dp"
-        android:layout_height="65dp"
-        android:layout_margin="16dp"
-        android:layout_marginTop="92dp"
-        android:hint="@string/activity_classification_result_searchEditText_hint"
-        app:layout_constraintBottom_toTopOf="@+id/mineralRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mineralRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_below="@id/searchEditText"
+        android:layout_below="@id/selectedMineral"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintVertical_bias="0.268" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="390dp"
+        android:layout_height="65dp"
+        android:layout_margin="16dp"
+        android:hint="@string/activity_classification_result_searchEditText_hint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.803" />
 
     <Button
         android:id="@+id/addToCollectionNewMineral"
